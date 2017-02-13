@@ -5,16 +5,13 @@ using UnityEngine;
 public class cameraBehavior : MonoBehaviour {
 
     public GameObject player;
+    public float cameraZoom;
 
-    private Vector3 offset;
-
-	// Use this for initialization
-	void Start () {
-        offset = transform.position - player.transform.position;
-	}
-	
-	// Update is called once per frame
-	void LateUpdate () {
-        transform.position = player.transform.position + offset;
-	}
+    void Update()
+    {
+        Vector3 pos = player.transform.position;
+        pos.y += cameraZoom;
+        pos.z -= cameraZoom;
+        transform.position = pos;
+    }
 }
