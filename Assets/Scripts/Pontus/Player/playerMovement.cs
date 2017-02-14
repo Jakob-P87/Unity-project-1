@@ -23,7 +23,6 @@ public class playerMovement : MonoBehaviour
             {
                 agent.SetDestination(hit.point);
             }
-            Debug.Log("Clicked " + hit.collider);
         }
     }
 }
