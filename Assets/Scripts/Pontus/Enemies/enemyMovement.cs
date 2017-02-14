@@ -9,11 +9,15 @@ public class enemyMovement : MonoBehaviour {
     public GameObject target;
     enemyStates enemyState;
     private float distToTarget;
+    Vector3 lastSeen;
+    Vector3 startPos;
 
 	void Start ()
     {
         enemyState = enemyStates.IDLE; 
         agent = GetComponent<NavMeshAgent>();
+        startPos = transform.position;
+
     }
 	
 	void Update ()
@@ -25,9 +29,14 @@ public class enemyMovement : MonoBehaviour {
         Physics.SphereCast(transform.position, 1, castDir, out hit);
         //Debug.Log(hit.collider.tag);
 
-        if (distToTarget < 50 && hit.collider.tag == "Player")
+        if (distToTarget < 75 && hit.collider.tag == "Player")
         {
+            lastSeen = target.transform.position;
             enemyState = enemyStates.CHASE;
+        }
+        else if (transform.position == lastSeen && enemyState == enemyStates.IDLE)
+        {
+            agent.SetDestination(startPos);
         }
         else
         {
@@ -37,11 +46,9 @@ public class enemyMovement : MonoBehaviour {
         switch (enemyState)
         {
             case enemyStates.IDLE:
-                agent.Stop();
                 break;
             case enemyStates.CHASE:
-                agent.Resume();
-                agent.SetDestination(target.transform.position);
+                agent.SetDestination(lastSeen);
                 break;
             case enemyStates.DEAD:
                 break;
