@@ -9,7 +9,6 @@ public class cameraBehavior : MonoBehaviour {
 
     void Start()
     {
-
     }
 
     void Update()

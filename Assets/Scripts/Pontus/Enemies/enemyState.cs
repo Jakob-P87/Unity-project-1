@@ -2,5 +2,7 @@
 {
     IDLE,
     CHASE,
+    ATTACK,
+    RETURN,
     DEAD
 }

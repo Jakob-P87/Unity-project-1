@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class playerMovement : MonoBehaviour
 {
     NavMeshAgent agent;
+    public float hp = 100;
     
     void Start()
     {

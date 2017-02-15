@@ -7,6 +7,8 @@ public class enemyMovement : MonoBehaviour {
 
     public GameObject target;
     private float distToTarget;
+    public float aggroRange;
+    public float attackRange;
     Vector3 lastSeen;
     Vector3 startPos;
     NavMeshAgent agent;
@@ -14,9 +16,11 @@ public class enemyMovement : MonoBehaviour {
 
     void Start ()
     {
+        InvokeRepeating("Attack", 0, 1.0f);
         enemyState = enemyStates.IDLE; 
         agent = GetComponent<NavMeshAgent>();
         startPos = transform.position;
+        target = GameObject.FindGameObjectWithTag("Player");
     }
 	
 	void Update ()
@@ -26,18 +30,22 @@ public class enemyMovement : MonoBehaviour {
         var castDir = target.transform.position - transform.position;
         Physics.SphereCast(transform.position, 1, castDir, out hit);
 
-        if (distToTarget < 60 && hit.collider.tag == "Player")
+        if (distToTarget < aggroRange && distToTarget > attackRange && hit.collider.tag == "Player") //CHASE
         {
             lastSeen = target.transform.position;
             enemyState = enemyStates.CHASE;
         }
-        else if (transform.position == lastSeen && enemyState == enemyStates.IDLE)
+        else if (distToTarget < attackRange && hit.collider.tag == "Player") //ATTACK
         {
-            agent.SetDestination(startPos);
+            enemyState = enemyStates.ATTACK;
         }
-        else
+        else if (transform.position == lastSeen && enemyState == enemyStates.IDLE && (hit.collider.tag != "Player" || distToTarget < aggroRange)) //RETURN
         {
-            enemyState = enemyStates.IDLE;
+            enemyState = enemyStates.RETURN;
+        }
+        else //IDLE
+        {
+            enemyState = enemyStates.IDLE; 
         }
 
         switch (enemyState)
@@ -45,18 +53,25 @@ public class enemyMovement : MonoBehaviour {
             case enemyStates.IDLE:
                 break;
             case enemyStates.CHASE:
+                agent.Resume();
                 agent.SetDestination(lastSeen);
+                break;
+            case enemyStates.ATTACK:
+                agent.Stop();
+                break;
+            case enemyStates.RETURN:
+                agent.Resume();
+                agent.SetDestination(startPos);
                 break;
             case enemyStates.DEAD:
                 break;
         }
 	}
-
-    void OnCollisionEnter(Collision collision)
+    void Attack()
     {
-        if (collision.rigidbody)
+        if (enemyState == enemyStates.ATTACK)
         {
-            Debug.Log("Hit!");
+            target.GetComponent<playerMovement>().hp -= 10;
         }
     }
 }
