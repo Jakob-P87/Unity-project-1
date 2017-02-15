@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyStats{
+public class EnemyStats : MonoBehaviour{
 
     //Life/Resource
     public int Health; //Hit points
