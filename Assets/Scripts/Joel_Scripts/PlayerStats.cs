@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStats
+public class PlayerStats : MonoBehaviour
 {
 
     //Life/Resource
@@ -11,14 +11,24 @@ public class PlayerStats
 
     //Offensive
     public int Damage;      //Points of damage dealt each attack
-    public int Strength;    //Increases Damage
     public int AttackSpeed; //Attacks per second
 
     //Defensive
     public int Armor; //Protection against attacks
 
+    //Speccable stats
+    public int Vitality;    //Increases Health
+    public int Strength;    //Increases Damage
+    public int Intelligence;
+    public int Dexterity;   //Increases Attack Speed
+
     //Utility
     public int MovementSpeed; //Traversal speed
 
+
+    void Start()
+    {
+        
+    }
 
 }
