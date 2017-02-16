@@ -9,17 +9,23 @@ public class playerUI : MonoBehaviour {
     public float currentHp;
     public Slider hpSlider;
 
-    void Start () {
+    void Start ()
+    {
 		
 	}
 	
-	void Update () {
+	void Update ()
+    {
 		
 	}
 
     public void TakeDamage (int amount)
     {
         currentHp -= amount;
+        if(currentHp < 0)
+        {
+            currentHp = 0;
+        }
 
         hpSlider.value = currentHp;
     }
