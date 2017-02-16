@@ -71,7 +71,7 @@ public class enemyMovement : MonoBehaviour {
     {
         if (enemyState == enemyStates.ATTACK)
         {
-            target.GetComponent<playerMovement>().hp -= 10;
+            target.GetComponent<playerUI>().TakeDamage(10);
         }
     }
 }
