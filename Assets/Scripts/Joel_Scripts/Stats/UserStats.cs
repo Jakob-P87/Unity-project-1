@@ -8,6 +8,12 @@ public class UserStats : MonoBehaviour {
     public int level;
     public string userClass;
 
+    /*
+     * base<var> = users raw stats (no items/buffs etc..)
+     * cur<var> = users raw stats + item stats, buffs, etc..
+     * 
+    */
+
     public float curHp;
     public float maxHp;
     public float curEnergy;
@@ -21,6 +27,8 @@ public class UserStats : MonoBehaviour {
     public float curDodge;
     public float baseHitPercent;
     public float curHitPercent;
+    public float baseArmor;
+    public float curArmor;
 
     public float hpRegenTimer;
     public float hpRegenAmout;
@@ -29,6 +37,21 @@ public class UserStats : MonoBehaviour {
 
     public float curXp;
     public float maxXp;
+
+    /*
+     * THOUGHT
+     * if no buffs exists for speccable stats, cur<var> not needed.
+    */
+    public float baseStrength;
+    public float curStrength;
+    public float baseVitality;
+    public float curVitality;
+    public float baseDexterity;
+    public float curDexterity;
+
+    public float baseMovementSpeed;
+    public float curMovementSpeed;
+
 
     public bool isDead;
 
