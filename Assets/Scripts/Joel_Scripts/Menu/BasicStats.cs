@@ -1,7 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class UserStats : MonoBehaviour {
+
+
+[System.Serializable]
+public class BasicStats {
+
+    /* public string userClass;
+
+     public float baseAttackPower;
+     public float curAttackPower;
+
+     public float baseAttackSpeed;
+     public float curAttackSpeed;
+
+     public float baseDodge;
+     public float curDodge;
+
+     public float baseHitPercent;
+     public float curHitPercent;
+     */
 
     [Header("-Player-")]
     [Space(10, order = 0)]
@@ -9,7 +27,7 @@ public class UserStats : MonoBehaviour {
     [Tooltip("Player Name")]
     public string username; //Player Name
 
-    [Tooltip("Player Level")]  
+    [Tooltip("Player Level")]
     public int level; //Player Level
 
     [Tooltip("Current amount of Experience Points")]
@@ -120,18 +138,4 @@ public class UserStats : MonoBehaviour {
     public float baseDexterity;
     [Tooltip("Dexterity Increases Attack Speed")]
     public float curDexterity;
-
-   
-
-    
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }
