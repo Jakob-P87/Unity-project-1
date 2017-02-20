@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Item : IEquatable<Item> {
+public class Item {
 
     public itemType m_type;
     public int m_id;
@@ -29,10 +29,5 @@ public class Item : IEquatable<Item> {
     public Item()
     {
 
-    }
-
-    public bool Equals(Item other)
-    {
-        throw new NotImplementedException();
     }
 }
