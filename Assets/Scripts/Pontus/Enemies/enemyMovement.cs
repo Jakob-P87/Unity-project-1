@@ -13,7 +13,6 @@ public class enemyMovement : MonoBehaviour {
     Vector3 startPos;
     NavMeshAgent agent;
     enemyStates enemyState;
-
     Animator anim;
 
     void Start ()
