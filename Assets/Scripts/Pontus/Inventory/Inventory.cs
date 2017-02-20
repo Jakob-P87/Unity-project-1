@@ -40,7 +40,6 @@ public class Inventory : MonoBehaviour {
             if (Physics.Raycast(ray, out hit) && hit.collider.tag == "Pickup")
             {
                 distToPickup = Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, hit.transform.position);
-                Debug.Log(distToPickup);
                 if (distToPickup <= 4.0f)
                 {
                     AddItem(hit.collider.name);

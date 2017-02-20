@@ -8,7 +8,6 @@ public class playerMovement : MonoBehaviour
     NavMeshAgent agent;
     Animator anim;
     playerUI ui;
-    public Inventory inv;
     playerStates playerState;
 
     void Start()
