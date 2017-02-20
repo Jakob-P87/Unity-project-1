@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class UserStats : MonoBehaviour {
 
-    public string username;
-    public int level;
-    public string userClass;
+    public string username; //Player Name
+
+    public int level; //Player Level
+
+    public float curXp;
+    public float maxXp;
+
+    public string userClass; //Player Class
 
     /*
      * base<var> = users raw stats (no items/buffs etc..)
@@ -14,29 +19,47 @@ public class UserStats : MonoBehaviour {
      * 
     */
 
+    //Player Lifeforce
     public float curHp;
     public float maxHp;
+
     public float curEnergy;
     public float maxEnergy;
 
-    public float baseAttackPower;
-    public float curAttackPower;
-    public float baseAttackSpeed;
-    public float curAttackSpeed;
-    public float baseDodge;
-    public float curDodge;
-    public float baseHitPercent;
-    public float curHitPercent;
-    public float baseArmor;
-    public float curArmor;
-
     public float hpRegenTimer;
     public float hpRegenAmout;
+
     public float energyRegenTimer;
     public float energyRegenAmount;
 
-    public float curXp;
-    public float maxXp;
+    //Player Attack
+    public float baseAttackPower;
+    public float curAttackPower;
+
+    public float baseAttackSpeed;
+    public float curAttackSpeed;
+
+    public float baseHitPercent;
+    public float curHitPercent;
+
+    //Player Defense
+    public float baseArmor;
+    public float curArmor;
+
+    public float baseDodge;
+    public float curDodge;
+
+
+
+
+
+
+
+
+
+
+
+   
 
     /*
      * THOUGHT
@@ -44,8 +67,10 @@ public class UserStats : MonoBehaviour {
     */
     public float baseStrength;
     public float curStrength;
+
     public float baseVitality;
     public float curVitality;
+
     public float baseDexterity;
     public float curDexterity;
 
