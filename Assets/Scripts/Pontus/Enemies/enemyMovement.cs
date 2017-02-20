@@ -13,9 +13,11 @@ public class enemyMovement : MonoBehaviour {
     Vector3 startPos;
     NavMeshAgent agent;
     enemyStates enemyState;
+    Animator anim;
 
     void Start ()
     {
+        anim = GetComponent<Animator>();
         InvokeRepeating("Attack", 0, 1.0f);
         enemyState = enemyStates.IDLE; 
         agent = GetComponent<NavMeshAgent>();
@@ -51,19 +53,31 @@ public class enemyMovement : MonoBehaviour {
         switch (enemyState)
         {
             case enemyStates.IDLE:
+                anim.SetBool("IsRunning", false);
+                anim.SetBool("IsAttacking", false);
+                anim.SetBool("IsDead", false);
                 break;
             case enemyStates.CHASE:
                 agent.Resume();
                 agent.SetDestination(lastSeen);
+                anim.SetBool("IsRunning", true);
+                anim.SetBool("IsAttacking", false);
                 break;
             case enemyStates.ATTACK:
                 agent.Stop();
+                anim.SetBool("IsRunning", false);
+                anim.SetBool("IsAttacking", true);
                 break;
             case enemyStates.RETURN:
                 agent.Resume();
                 agent.SetDestination(startPos);
+                anim.SetBool("IsRunning", true);
+                anim.SetBool("IsAttacking", false);
                 break;
             case enemyStates.DEAD:
+                anim.SetBool("IsDead", true);
+                anim.SetBool("IsAttacking", false);
+                anim.SetBool("IsRunning", false);
                 break;
         }
 	}
