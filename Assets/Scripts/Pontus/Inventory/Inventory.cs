@@ -61,7 +61,7 @@ public class Inventory : MonoBehaviour {
         }
     }
 
-    void AddItem(string name)
+    public void AddItem(string name)
     {
         for (int i = 0; i < inventory.Count; i++)
         {            
