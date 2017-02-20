@@ -11,7 +11,8 @@ public class CharacterSelect : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+   
+        
     }
 
     void OnGUI()
@@ -43,11 +44,13 @@ public class CharacterSelect : MonoBehaviour
 
     void AssignBaseStats(int classChosen)
     {
-
+        //Comp Ändrar på värdena i UserStats klassen
         var Comp = User.GetComponent<UserStats>();
-
+        
+        
         Comp.userClass = AllClassStats[classChosen].userClass;
         Comp.baseAttackPower = AllClassStats[classChosen].baseAttackPower;
         Comp.baseAttackSpeed = AllClassStats[classChosen].baseAttackSpeed;
+        
     }
 }
