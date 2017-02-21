@@ -87,11 +87,35 @@ public class Inventory : MonoBehaviour {
                 {
                     if (database.database[j].m_name == name)
                     {
-                        inventory[i] = database.database[j];
+                        inventory[i] = new Item(database.database[j]);
                     }
                 }
                 break;
             }                     
         }
+    }
+
+    public void RemoveItem(string name)
+    {
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            if (inventory[i].m_name == name)
+            {
+                inventory[i] = new Item();
+                return;
+            }
+        }
+    }
+
+    public bool ItemExist(string Craft)
+    {
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            if (Craft == inventory[i].m_name)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
