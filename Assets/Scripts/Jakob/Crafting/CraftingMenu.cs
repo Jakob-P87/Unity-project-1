@@ -11,6 +11,8 @@ public class CraftingMenu : MonoBehaviour
     bool showCrafting = false;
     public Texture2D pot;
 
+    bool itemExist;
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.C))
@@ -37,7 +39,11 @@ public class CraftingMenu : MonoBehaviour
 
         if (GUI.Button(button, pot))
         {
-            craftItem(database.database[2]);
+            if (inventory.ItemExist("Red Mushroom"))
+            {
+                craftItem(database.database[2]);
+                inventory.RemoveItem("Red Mushroom");
+            }
         }
     }
 
