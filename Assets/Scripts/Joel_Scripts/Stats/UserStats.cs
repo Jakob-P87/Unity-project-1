@@ -36,7 +36,7 @@ public class UserStats : MonoBehaviour {
     [Tooltip("Amout of HP currently available")]
     public float curHp; //HP
     [Tooltip("Maximum amount of HP")]
-    public float maxHp;
+    public float maxHp = 100;
 
     [Tooltip("Amout of Energy currently available")]
     public float curEnergy; //mana/energy
