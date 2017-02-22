@@ -3,5 +3,6 @@
     IDLE,
     RUNNING,
     DEAD,
-    ATTACKING
+    ATTACKING,
+    WAKEUP
 }

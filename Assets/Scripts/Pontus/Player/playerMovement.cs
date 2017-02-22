@@ -9,10 +9,11 @@ public class playerMovement : MonoBehaviour
     Animator anim;
     playerUI ui;
     playerStates playerState;
+    int layerMask = ~(1 << 8);
 
     void Start()
     {
-        playerState = playerStates.IDLE;
+        playerState = playerStates.WAKEUP;
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         ui = GetComponent<playerUI>();
@@ -20,12 +21,17 @@ public class playerMovement : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButton(0))
+        Debug.Log(playerState);
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        {
+            playerState = playerStates.IDLE;
+        }
+        if (Input.GetMouseButton(0) && playerState != playerStates.WAKEUP)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit, 9999999999, layerMask))
             {
                 agent.SetDestination(hit.point);
             }
@@ -33,9 +39,9 @@ public class playerMovement : MonoBehaviour
 
         if (agent.remainingDistance > 1) //Play running anim
         {
-            playerState = playerStates.RUNNING; 
+            playerState = playerStates.RUNNING;
         }
-        else if (agent.remainingDistance < 1) //Stop all animations
+        else if (agent.remainingDistance < 1 && playerState != playerStates.WAKEUP) //Stop all animations
         {
             playerState = playerStates.IDLE;
         }
@@ -60,7 +66,8 @@ public class playerMovement : MonoBehaviour
                 anim.SetBool("IsAttacking", false);
                 anim.SetBool("IsDead", false);
                 break;
+            case playerStates.WAKEUP:
+                break;
         }
-        
     }
 }
