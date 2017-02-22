@@ -7,7 +7,6 @@ public class playerMovement : MonoBehaviour
 {
     NavMeshAgent agent;
     Animator anim;
-    playerUI ui;
     playerStates playerState;
     int layerMask = ~(1 << 8);
 
@@ -19,7 +18,6 @@ public class playerMovement : MonoBehaviour
         playerState = playerStates.WAKEUP;
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
-        ui = GetComponent<playerUI>();
     }
 
     void Update()

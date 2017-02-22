@@ -11,6 +11,7 @@ public class Inventory : MonoBehaviour {
     bool showInventory = false;
     public List<Item> inventory = new List<Item>();
     float distToPickup;
+    int layerMask = ~(1 << 8);
     [HideInInspector]
     public List<Item> slots = new List<Item>();
     
@@ -37,7 +38,7 @@ public class Inventory : MonoBehaviour {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit) && hit.collider.tag == "Pickup")
+            if (Physics.Raycast(ray, out hit, 999999, layerMask) && hit.collider.tag == "Pickup")
             {
                 distToPickup = Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, hit.transform.position);
                 if (distToPickup <= 4.0f)
