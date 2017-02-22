@@ -102,8 +102,8 @@ public class Inventory : MonoBehaviour {
                 {
                     if (database.database[j].m_name == name)
                     {
-                        //inventory[i] = new Item(database.database[j]);
                         inventory[i] = database.database[j];
+                        inventory[i].m_stackSize = 1;
                     }
                 }
                 break;
