@@ -5,28 +5,25 @@ using UnityEngine.UI;
 
 public class playerUI : MonoBehaviour {
 
-    public float maxHp = 100;
-    public float currentHp;
+    public UserStats stats;
     public Slider hpSlider;
 
     void Start ()
     {
-		
+        stats = GetComponent<UserStats>();
 	}
 	
 	void Update ()
     {
-		
-	}
+        hpSlider.value = stats.curHp;
+    }
 
     public void TakeDamage (int amount)
     {
-        currentHp -= amount;
-        if(currentHp < 0)
+        stats.curHp -= amount;
+        if(stats.curHp < 0)
         {
-            currentHp = 0;
+            stats.curHp = 0;
         }
-
-        hpSlider.value = currentHp;
     }
 }
