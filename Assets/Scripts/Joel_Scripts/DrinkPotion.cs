@@ -2,9 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[RequireComponent(typeof(AudioSource))]
 public class DrinkPotion : MonoBehaviour {
 
     public Inventory inventory;
+
+
+    public AudioClip Blub_Potion_Sound;
+    AudioSource audioNew;
+
+    void Start()
+    {
+        audioNew = GetComponent<AudioSource>();
+    }
 
     void Update()
     {
@@ -16,9 +27,12 @@ public class DrinkPotion : MonoBehaviour {
             {
                 inventory.RemoveItem("Health Potion");
                 Player.curHp = Player.maxHp;
+                audioNew.PlayOneShot(Blub_Potion_Sound, 0.7F);
 
             }
         }
     }
+
+
 
 }
