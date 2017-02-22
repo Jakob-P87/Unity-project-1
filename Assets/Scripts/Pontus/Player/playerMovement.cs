@@ -7,7 +7,6 @@ public class playerMovement : MonoBehaviour
 {
     NavMeshAgent agent;
     Animator anim;
-    playerUI ui;
     playerStates playerState;
     public UserStats stats;
 
@@ -17,7 +16,6 @@ public class playerMovement : MonoBehaviour
         playerState = playerStates.IDLE;
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
-        ui = GetComponent<playerUI>();
     }
 
     void Update()
