@@ -9,20 +9,14 @@ public class playerMovement : MonoBehaviour
     Animator anim;
     playerUI ui;
     playerStates playerState;
-<<<<<<< HEAD
     int layerMask = ~(1 << 8);
 
-    void Start()
-    {
-        playerState = playerStates.WAKEUP;
-=======
     public UserStats stats;
 
     void Start()
     {
         stats = GetComponent<UserStats>();
-        playerState = playerStates.IDLE;
->>>>>>> 20e05853cfa249a0964ccc2e67655e2b7815a750
+        playerState = playerStates.WAKEUP;
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         ui = GetComponent<playerUI>();
