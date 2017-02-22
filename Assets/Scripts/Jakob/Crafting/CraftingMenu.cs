@@ -39,6 +39,7 @@ public class CraftingMenu : MonoBehaviour
 
         if (GUI.Button(button, pot))
         {
+            //Check to see if we have a mushroom in the inventory before we can craft the potion.
             if (inventory.ItemExist("Red Mushroom"))
             {
                 craftItem(database.database[2]);
