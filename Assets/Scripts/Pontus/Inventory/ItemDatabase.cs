@@ -18,6 +18,7 @@ public class ItemDatabase : MonoBehaviour {
         database.Add(new Item(itemType.Material, 2, "Health Potion", 0, 0, "Drink to restore some health"));
         database.Add(new Item(itemType.Armor, 3, "Chain Mail", 0, 5, "A normal chain mail"));
         database.Add(new Item(itemType.Material, 4, "Red Mushroom", 0, 0, "Used to make potions"));
+        database.Add(new Item(itemType.Material, 5, "Water Bottle", 0, 0, "Used to make potions"));
     }
 
     void Update()

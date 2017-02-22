@@ -46,6 +46,14 @@ public class Inventory : MonoBehaviour {
                     DestroyObject(hit.transform.gameObject);
                 }
             }
+            if (Physics.Raycast(ray, out hit) && hit.collider.tag == "Interactable")
+            {
+                distToPickup = Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, hit.transform.position);
+                if (distToPickup <= 6.0f)
+                {
+                    AddItem("Water Bottle");
+                }
+            }
         }
     }
 

@@ -24,7 +24,6 @@ public class playerMovement : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(playerState);
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
             playerState = playerStates.IDLE;
