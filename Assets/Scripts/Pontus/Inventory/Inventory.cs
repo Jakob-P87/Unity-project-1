@@ -70,6 +70,7 @@ public class Inventory : MonoBehaviour {
                 if (slots[i].m_name != null)
                 {
                     GUI.DrawTexture(slotRect, slots[i].m_icon);
+                    GUI.Label(slotRect, slots[i].m_stackSize.ToString());
                 }
 
                 i++;
@@ -80,14 +81,20 @@ public class Inventory : MonoBehaviour {
     public void AddItem(string name)
     {
         for (int i = 0; i < inventory.Count; i++)
-        {            
-            if(inventory[i].m_name == null)
+        {
+            if (inventory[i].m_name == name)
+            {
+                inventory[i].m_stackSize++;
+                break;
+            }       
+            else if(inventory[i].m_name == null)
             {
                 for (int j = 0; j < database.database.Count; j++)
                 {
                     if (database.database[j].m_name == name)
                     {
-                        inventory[i] = new Item(database.database[j]);
+                        //inventory[i] = new Item(database.database[j]);
+                        inventory[i] = database.database[j];
                     }
                 }
                 break;
@@ -101,17 +108,21 @@ public class Inventory : MonoBehaviour {
         {
             if (inventory[i].m_name == name)
             {
-                inventory[i] = new Item();
+                inventory[i].m_stackSize--;
+                if (inventory[i].m_stackSize < 1)
+                {
+                    inventory[i] = new Item();
+                }
                 return;
             }
         }
     }
 
-    public bool ItemExist(string Craft)
+    public bool ItemExist(string craft)
     {
         for (int i = 0; i < inventory.Count; i++)
         {
-            if (Craft == inventory[i].m_name)
+            if (craft == inventory[i].m_name)
             {
                 return true;
             }
