@@ -4,16 +4,12 @@ using UnityEngine;
 
 public class Highlight : MonoBehaviour
 {
-    //private Renderer rend;
-    public Color startColor;
-    [SerializeField]
-    private GameObject mushroom;
     int layerMask = (1 << 9);
     private Interactable lastHit;
 
     void Start()
     {
-        //rend = mushroom.GetComponent<Renderer>();
+
     }
 
     void Update()
