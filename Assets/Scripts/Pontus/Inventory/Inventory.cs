@@ -8,9 +8,11 @@ public class Inventory : MonoBehaviour {
     public int slotsX, slotsY;
     public Vector2 pos;
     public ItemDatabase database;
+    public string item;
     bool showInventory = false;
     public List<Item> inventory = new List<Item>();
     float distToPickup;
+
     int layerMask = ~(1 << 8);
     [HideInInspector]
     public List<Item> slots = new List<Item>();
@@ -52,7 +54,7 @@ public class Inventory : MonoBehaviour {
                 distToPickup = Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, hit.transform.position);
                 if (distToPickup <= 6.0f)
                 {
-                    AddItem("Water Bottle");
+                    AddItem(hit.collider.GetComponent<pickup>().item);
                 }
             }
         }
@@ -96,7 +98,7 @@ public class Inventory : MonoBehaviour {
                 inventory[i].m_stackSize++;
                 break;
             }       
-            else if(inventory[i].m_name == null)
+            else if(inventory[i].m_name == null && !ItemExist(name))
             {
                 for (int j = 0; j < database.database.Count; j++)
                 {
@@ -127,11 +129,11 @@ public class Inventory : MonoBehaviour {
         }
     }
 
-    public bool ItemExist(string craft)
+    public bool ItemExist(string name)
     {
         for (int i = 0; i < inventory.Count; i++)
         {
-            if (craft == inventory[i].m_name)
+            if (name == inventory[i].m_name)
             {
                 return true;
             }
