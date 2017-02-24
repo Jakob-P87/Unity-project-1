@@ -6,9 +6,14 @@ public class LevelSystem : MonoBehaviour
 {
     public int currentExp;
     public int level;
+    Rect rect = new Rect(32, 600, 200, 50);
 
-	// Use this for initialization
-	void Start ()
+    string lvText = "Lv:";
+
+    public GUIStyle guiLevel;
+
+    // Use this for initialization
+    void Start ()
     {
         currentExp = 0;
         level = 1;
@@ -27,5 +32,11 @@ public class LevelSystem : MonoBehaviour
             currentExp = 0;
             level++;
         }
+    }
+
+    void OnGUI()
+    {
+        GUI.contentColor = Color.black;
+        GUI.Label(rect, lvText + level, guiLevel);
     }
 }
