@@ -26,7 +26,7 @@ public class playerMovement : MonoBehaviour
         {
             playerState = playerStates.IDLE;
         }
-        if (Input.GetMouseButton(0) /*&& playerState != playerStates.WAKEUP*/)
+        if (Input.GetMouseButton(0) && playerState != playerStates.WAKEUP)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -60,6 +60,7 @@ public class playerMovement : MonoBehaviour
                 break;
             case playerStates.DEAD:
                 anim.SetBool("IsDead", true);
+                playerState = playerStates.WAKEUP;
                 break;
             case playerStates.IDLE:
                 anim.SetBool("IsRunning", false);
