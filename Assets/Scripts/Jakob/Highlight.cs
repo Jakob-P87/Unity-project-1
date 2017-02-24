@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Highlight : MonoBehaviour
 {
-    private Renderer rend;
+    //private Renderer rend;
     public Color startColor;
     [SerializeField]
     private GameObject mushroom;
@@ -13,7 +13,7 @@ public class Highlight : MonoBehaviour
 
     void Start()
     {
-        rend = mushroom.GetComponent<Renderer>();
+        //rend = mushroom.GetComponent<Renderer>();
     }
 
     void Update()
@@ -24,7 +24,6 @@ public class Highlight : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 9999999999, layerMask))
         {
-            Debug.Log("Hit");
             // We hit an interactable!
             lastHit = hit.collider.GetComponent<Interactable>();
             lastHit.OnHitByRaycast();
