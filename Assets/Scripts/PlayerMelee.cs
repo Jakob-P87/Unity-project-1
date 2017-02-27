@@ -1,41 +1,56 @@
-﻿//using System.Collections;
-//using System.Collections.Generic;
-//using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-//public class PlayerMelee : MonoBehaviour
-//{
+public class PlayerMelee : MonoBehaviour
+{
 
-//    GameObject player;
-//    GameObject meleeTrigger;
-//    float swingRate = 0.5f;
+    playerMovement player;
+    UserStats stats;
+    Animator anim;
+    public enemyUI enemy;
+    private float distToTarget;
+    GameObject target;
+    bool attacking;
 
-//    void Start()
-//    {
-//        meleeTrigger.active = false;
-//        MeleeSwing();
-//    }
+    void Start()
+    {
 
-//    void MeleeSwing()
-//    {
-//        while (true)
-//        {
-//            if (Input.GetButtonUp("Fire1"))
-//            {
+        stats = GameObject.FindGameObjectWithTag("Player").GetComponent<UserStats>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<playerMovement>();
+        anim = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
+    }
 
-//                player.animation.CrossFade("1h_attack1");
-//                meleeTrigger.active = true;
-//                yield WaitForSeconds(player.animation["1h_attack1"].length);
-//                meleeTrigger.active = false;
-//                break;
+    void Update()
+    {   
+        if (Input.GetMouseButton(0) && !attacking)
+        {
+            StartCoroutine(AttackCooldown());
+        }
+    }
 
-//                yield WaitForSeconds(swingRate);
+    void MeleeSwing()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
 
-//            }
-//            else
-//            {
-//                yield;
-//            }
-//        }
+        if (Physics.Raycast(ray, out hit) && hit.collider.tag == "Enemy" && (Vector3.Distance(transform.position, hit.collider.transform.position) < stats.baseAttackRange) && player.playerState != playerStates.WAKEUP)
+        {
+            player.agent.Stop();
+            player.LookAt(hit.collider.transform);
+            anim.speed = 2;
+            anim.Play("Attack");
+            enemy = hit.collider.gameObject.GetComponent<enemyUI>();
+            enemy.currentHp -= stats.baseAttackPower;
+        }
+    }
 
-//    }
-//}
+    IEnumerator AttackCooldown()
+    {
+        attacking = true;
+        MeleeSwing();
+        yield return new WaitForSeconds(stats.baseAttackSpeed);
+        attacking = false;
+        yield break;
+    }
+}

@@ -5,9 +5,9 @@ using UnityEngine.AI;
 
 public class playerMovement : MonoBehaviour
 {
-    NavMeshAgent agent;
+    public NavMeshAgent agent;
     Animator anim;
-    playerStates playerState;
+    public playerStates playerState;
     int layerMask = ~(1 << 8);
 
     public UserStats stats;
@@ -22,7 +22,7 @@ public class playerMovement : MonoBehaviour
 
     void Update()
     {
-        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Idle") && playerState != playerStates.ATTACKING)
         {
             playerState = playerStates.IDLE;
         }
@@ -31,9 +31,11 @@ public class playerMovement : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, 9999999999, layerMask))
+            if (Physics.Raycast(ray, out hit, 9999999999, layerMask) && hit.collider.tag != "Enemy")
             {
+                agent.Resume();
                 agent.SetDestination(hit.point);
+                anim.speed = 1;
             }
         }
 
@@ -41,7 +43,7 @@ public class playerMovement : MonoBehaviour
         {
             playerState = playerStates.RUNNING;
         }
-        else if (agent.remainingDistance < 1 && playerState != playerStates.WAKEUP) //Stop all animations
+        else if (agent.remainingDistance < 1 && playerState != playerStates.WAKEUP && playerState != playerStates.ATTACKING) //Stop all animations
         {
             playerState = playerStates.IDLE;
         }
@@ -59,6 +61,7 @@ public class playerMovement : MonoBehaviour
                 anim.SetBool("IsAttacking", true);
                 break;
             case playerStates.DEAD:
+                anim.speed = 1;
                 anim.SetBool("IsDead", true);
                 playerState = playerStates.WAKEUP;
                 break;
@@ -70,5 +73,13 @@ public class playerMovement : MonoBehaviour
             case playerStates.WAKEUP:
                 break;
         }
+    }
+
+    public void LookAt(Transform target)
+    {
+            Vector3 targetDir = target.transform.position - transform.position;
+            Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, 2f, 1f);
+            Debug.DrawRay(transform.position, newDir, Color.red);
+            transform.rotation = Quaternion.LookRotation(newDir);
     }
 }
