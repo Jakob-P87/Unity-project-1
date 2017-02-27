@@ -73,6 +73,7 @@ public class UserStats : MonoBehaviour {
     public float baseHitPercent;
     [Tooltip("Increases the Players chance to land an attack")]
     public float curHitPercent;
+    public float baseAttackRange;
 
     //Player Defense
     [Space(20, order = 0)]
