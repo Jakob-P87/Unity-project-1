@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Textures/Pontus.meta
 guid: 54146f7c114c44048a0a5ee84c51527d
 folderAsset: yes
 timeCreated: 1487148220
+=======
+guid: 7eae94ca1bb901a49b7ee61afd647ab1
+folderAsset: yes
+timeCreated: 1487938701
+>>>>>>> 60a36f7ff0ef7de6e8eb4078464a8ef140a66d34:Assets/Textures/Pontus.meta
 licenseType: Free
 DefaultImporter:
   userData: 
