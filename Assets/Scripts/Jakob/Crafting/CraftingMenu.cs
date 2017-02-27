@@ -11,7 +11,7 @@ public class CraftingMenu : MonoBehaviour
     bool showCrafting = false;
     public Texture2D pot;
 
-    public LevelSystem level;
+    public UserStats level;
 
     bool itemExist;
 
@@ -46,7 +46,7 @@ public class CraftingMenu : MonoBehaviour
                 craftItem(database.database[2]);
                 inventory.RemoveItem("Red Mushroom");
                 inventory.RemoveItem("Water Bottle");
-                level.currentExp += (level.level + 50) / level.level + 3;
+                level.curXp += (level.level + 50) / level.level + 3;
             }
         }
     }

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class LevelSystem : MonoBehaviour
 {
-    public int currentExp;
-    public int level;
+    public UserStats stats;
+
     Rect rect = new Rect(32, 600, 200, 50);
 
     string lvText = "Lv:";
@@ -15,8 +15,7 @@ public class LevelSystem : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        currentExp = 0;
-        level = 1;
+        stats = GameObject.FindGameObjectWithTag("Player").GetComponent<UserStats>();
 	}
 	
 	// Update is called once per frame
@@ -27,16 +26,10 @@ public class LevelSystem : MonoBehaviour
 
     void LevelUp()
     {
-        if (currentExp >= ((level + 100) * level + 13))
+        if (stats.curXp >= ((stats.level + 100) * stats.level + 13))
         {
-            currentExp = 0;
-            level++;
+            stats.curXp = 0;
+            stats.level++;
         }
-    }
-
-    void OnGUI()
-    {
-        GUI.contentColor = Color.black;
-        GUI.Label(rect, lvText + level, guiLevel);
     }
 }
