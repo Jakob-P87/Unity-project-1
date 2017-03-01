@@ -16,6 +16,7 @@ public class playerUI : MonoBehaviour {
 	
 	void Update ()
     {
+        hpSlider.maxValue = stats.maxHp;
         hpSlider.value = stats.curHp;
         xpSlider.value = stats.curXp;
         xpSlider.maxValue = ((stats.level + 100) * stats.level + 13);
