@@ -30,6 +30,9 @@ public class LevelSystem : MonoBehaviour
         {
             stats.curXp = 0;
             stats.level++;
+            stats.curStrength += 3;
+            stats.curVitality += 2;
+            stats.curDexterity += 2;
         }
     }
 }

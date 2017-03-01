@@ -10,9 +10,20 @@ public class CharacterGUI : MonoBehaviour
     [SerializeField]
     private Text playerStr;
     [SerializeField]
+    private Text strAmount;
+    [SerializeField]
     private Text playerVit;
     [SerializeField]
+    private Text vitAmount;
+    [SerializeField]
     private Text playerDex;
+    [SerializeField]
+    private Text dexAmount;
+
+    [SerializeField]
+    private Text playerDmg;
+    [SerializeField]
+    private Text dmgAmount;
 
     [SerializeField]
     private Text playerName;
@@ -49,9 +60,16 @@ public class CharacterGUI : MonoBehaviour
         playerName.text = stats.username + " Lv: " + stats.level.ToString();
         playerHp.text = "Current Hp:    " + stats.maxHp.ToString();
         playerXp.text = "Current Exp:   " + stats.curXp.ToString();
-        playerStr.text = "Str:          " + stats.curStrength.ToString();
-        playerVit.text = "Vit:          " + stats.curVitality.ToString();
-        playerDex.text = "Dex:          " + stats.curDexterity.ToString();
+
+        playerStr.text = "Str:";
+        strAmount.text = stats.curStrength.ToString();
+        playerVit.text = "Vit:";
+        vitAmount.text = stats.curVitality.ToString();
+        playerDex.text = "Dex:";
+        dexAmount.text = stats.curDexterity.ToString();
+
+        playerDmg.text = "Damage";
+        dmgAmount.text = stats.curAttackPower.ToString();
     }
 
     public void Toggle()
