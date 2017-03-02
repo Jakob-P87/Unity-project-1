@@ -36,7 +36,7 @@ public class UserStats : MonoBehaviour {
     [Tooltip("Amout of HP currently available")]
     public float curHp; //HP
     [Tooltip("Maximum amount of HP")]
-    public float maxHp = 100;
+    public float maxHp;
 
     [Tooltip("Amout of Energy currently available")]
     public float curEnergy; //mana/energy
@@ -130,7 +130,18 @@ public class UserStats : MonoBehaviour {
 	void Start ()
     {
         level = 1;
+<<<<<<< HEAD
+
+        baseAttackSpeed = 1;
+        curStrength = baseStrength;
+        curVitality = baseVitality;
+        curDexterity = baseDexterity;
+        maxHp = (100) + (curVitality * vitMultiplier);
+        curHp = maxHp;
+    }
+=======
 	}
+>>>>>>> 877372159c6297e09d968a10eef6236129e37d98
 	
 	// Update is called once per frame
 	void Update () {

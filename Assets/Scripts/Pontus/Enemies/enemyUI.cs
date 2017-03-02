@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class enemyUI : MonoBehaviour {
 
-    public float maxHp = 100;
+    public float maxHp;
     public float currentHp;
     public Slider hpSlider;
     Slider hp;
@@ -15,6 +15,7 @@ public class enemyUI : MonoBehaviour {
     {
         hp = (Slider)Instantiate(hpSlider);
         hp.transform.SetParent(canvas.transform, false);
+        hp.maxValue = maxHp;
         hp.value = currentHp;
         hp.gameObject.SetActive(false);
     }
