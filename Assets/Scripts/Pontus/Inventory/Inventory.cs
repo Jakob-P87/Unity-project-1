@@ -16,7 +16,11 @@ public class Inventory : MonoBehaviour {
     int layerMask = ~(1 << 8);
     [HideInInspector]
     public List<Item> slots = new List<Item>();
-    
+
+    [SerializeField]
+    GameObject InventorySlot;
+    [SerializeField]
+    GameObject InventoryUI;
 
     private void Start()
     {
@@ -24,6 +28,7 @@ public class Inventory : MonoBehaviour {
         {
             slots.Add(new Item());
             inventory.Add(new Item());
+            Instantiate(InventorySlot, InventoryUI.transform);
         }
     }
 
@@ -58,6 +63,12 @@ public class Inventory : MonoBehaviour {
                 }
             }
         }
+    }
+
+    public void Toggle()
+    {
+        showInventory = !showInventory;
+        //showInventory.SetActive(panelActive);
     }
 
     void OnGUI()

@@ -10,10 +10,13 @@ public class CharacterGUI : MonoBehaviour
     [SerializeField]
     private Text playerStr;
     [SerializeField]
+    private Text strAmount;
+    [SerializeField]
     private Text playerVit;
     [SerializeField]
+    private Text vitAmount;
+    [SerializeField]
     private Text playerDex;
-<<<<<<< HEAD
     [SerializeField]
     private Text dexAmount;
 
@@ -25,8 +28,6 @@ public class CharacterGUI : MonoBehaviour
     private Text playerAttackSpeed;
     [SerializeField]
     private Text atkSpd;
-=======
->>>>>>> 877372159c6297e09d968a10eef6236129e37d98
 
     [SerializeField]
     private Text playerName;
@@ -65,7 +66,6 @@ public class CharacterGUI : MonoBehaviour
     void UpdateTextfields()
     {
         playerName.text = stats.username + " Lv: " + stats.level.ToString();
-<<<<<<< HEAD
         playerHp.text = "Max Hp:";
         hpAmount.text = stats.maxHp.ToString();
         playerXp.text = "Exp:";
@@ -82,18 +82,10 @@ public class CharacterGUI : MonoBehaviour
         dmgAmount.text = stats.curAttackPower.ToString();
         playerAttackSpeed.text = "AtkSpd";
         atkSpd.text = stats.curAttackSpeed.ToString();
-=======
-        playerHp.text = "Current Hp:    " + stats.maxHp.ToString();
-        playerXp.text = "Current Exp:   " + stats.curXp.ToString();
-        playerStr.text = "Str:          " + stats.curStrength.ToString();
-        playerVit.text = "Vit:          " + stats.curVitality.ToString();
-        playerDex.text = "Dex:          " + stats.curDexterity.ToString();
->>>>>>> 877372159c6297e09d968a10eef6236129e37d98
     }
 
     public void Toggle()
     {
-        Debug.Log("Hello World!");
         panelActive = !panelActive;
         panel.SetActive(panelActive);
     }

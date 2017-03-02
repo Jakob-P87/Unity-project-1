@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 public class ItemDrop : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class ItemDrop : MonoBehaviour
     Animator anim;
     Transform goRef;
     enemyMovement enemy;
+    NavMeshAgent agent;
+    
 
     // Use this for initialization
     void Start()
@@ -19,6 +22,7 @@ public class ItemDrop : MonoBehaviour
         sRef = GameObject.FindGameObjectWithTag("Enemy").GetComponent<enemyUI>();
         anim = GetComponent<Animator>();
         enemy = GetComponent<enemyMovement>();
+        agent = GetComponent<NavMeshAgent>();
     }
 
     // Update is called once per frame
@@ -26,8 +30,10 @@ public class ItemDrop : MonoBehaviour
     {
         if (sRef.currentHp <= 0) //if currentHp <= 0
         {
+            agent.Stop();
             StartCoroutine(DestroyObj());
             anim.Play("Dead");
+            
         }
     }
     IEnumerator DestroyObj()
