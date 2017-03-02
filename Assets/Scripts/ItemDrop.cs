@@ -8,18 +8,20 @@ public class ItemDrop : MonoBehaviour
 {
     public Transform drop;
     public Transform pos;
-    enemyUI sRef;
+    public enemyUI sRef;
     Animator anim;
     Transform goRef;
-    enemyMovement enemy;
+    public enemyMovement enemy;
     NavMeshAgent agent;
+
+    public UserStats level;
     
 
     // Use this for initialization
     void Start()
     {
         //reference to spider object with the script enemyUI on itself
-        sRef = GameObject.FindGameObjectWithTag("Enemy").GetComponent<enemyUI>();
+        //sRef = GameObject.FindGameObjectWithTag("Enemy").GetComponent<enemyUI>();
         anim = GetComponent<Animator>();
         enemy = GetComponent<enemyMovement>();
         agent = GetComponent<NavMeshAgent>();
@@ -30,16 +32,17 @@ public class ItemDrop : MonoBehaviour
     {
         if (sRef.currentHp <= 0) //if currentHp <= 0
         {
+            Debug.Log("Hello");
             agent.Stop();
             StartCoroutine(DestroyObj());
             anim.Play("Dead");
-            
         }
     }
     IEnumerator DestroyObj()
     {
-        enemy.enemyState = enemyStates.DEAD;
+        Debug.Log("mhmm");
         yield return new WaitForSeconds(2);
+        level.curXp += (level.level + 50) / level.level + 3;
         DropItem();
         Destroy(gameObject);
         yield break;

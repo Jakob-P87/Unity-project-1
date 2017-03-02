@@ -10,12 +10,16 @@ public class Inventory : MonoBehaviour {
     public ItemDatabase database;
     public string item;
     bool showInventory = false;
+
+    // REAL Inventory
     public List<Item> inventory = new List<Item>();
+
     float distToPickup;
 
     int layerMask = ~(1 << 8);
-    [HideInInspector]
-    public List<Item> slots = new List<Item>();
+
+    // Inventory graphical representation
+    public List<InventorySlot> newInventory = new List<InventorySlot>();
 
     [SerializeField]
     GameObject InventorySlot;
@@ -24,11 +28,14 @@ public class Inventory : MonoBehaviour {
 
     private void Start()
     {
+        InventoryUI.SetActive(showInventory);
+
         for (int i = 0; i < (slotsX * slotsY); i++)
         {
-            slots.Add(new Item());
             inventory.Add(new Item());
-            Instantiate(InventorySlot, InventoryUI.transform);
+            GameObject inventorySlot = Instantiate(InventorySlot, InventoryUI.transform);
+
+            newInventory.Add(inventorySlot.GetComponent<InventorySlot>());
         }
     }
 
@@ -37,7 +44,7 @@ public class Inventory : MonoBehaviour {
         
         if (Input.GetKeyDown(KeyCode.I))
         {
-            showInventory = !showInventory;
+            Toggle();
         }
 
         if (Input.GetMouseButtonDown(0))
@@ -68,34 +75,25 @@ public class Inventory : MonoBehaviour {
     public void Toggle()
     {
         showInventory = !showInventory;
-        //showInventory.SetActive(panelActive);
+        InventoryUI.SetActive(showInventory);
+        DrawInventory();
     }
 
-    void OnGUI()
+    public void DrawInventory()
     {
-        if (showInventory)
+        for (int i = 0; i < newInventory.Count; i++)
         {
-            DrawInventory();
-        } 
-    }
-
-    void DrawInventory()
-    {
-        int i = 0;
-        for (int y = 0; y < slotsY; y++)
-        {
-            for (int x = 0; x < slotsX; x++)                
+            if (inventory[i].m_name != null)
             {
-                Rect slotRect = new Rect(60 * x + pos.x, 60 * y + pos.y, 50, 50);
-                GUI.Box(slotRect, "");
-                slots[i] = inventory[i];
-                if (slots[i].m_name != null)
-                {
-                    GUI.DrawTexture(slotRect, slots[i].m_icon);
-                    GUI.Label(slotRect, slots[i].m_stackSize.ToString());
-                }
-
-                i++;
+                newInventory[i].ItemIcon.enabled = true;
+                newInventory[i].StackSize.enabled = true;
+                newInventory[i].ItemIcon.sprite = inventory[i].m_icon;
+                newInventory[i].StackSize.text = inventory[i].m_stackSize.ToString();
+            }
+            else
+            {
+                newInventory[i].ItemIcon.enabled = false;
+                newInventory[i].StackSize.enabled = false;
             }
         }
     }
@@ -107,6 +105,7 @@ public class Inventory : MonoBehaviour {
             if (inventory[i].m_name == name)
             {
                 inventory[i].m_stackSize++;
+                DrawInventory();
                 break;
             }       
             else if(inventory[i].m_name == null && !ItemExist(name))
@@ -117,6 +116,7 @@ public class Inventory : MonoBehaviour {
                     {
                         inventory[i] = database.database[j];
                         inventory[i].m_stackSize = 1;
+                        DrawInventory();
                     }
                 }
                 break;
@@ -135,6 +135,7 @@ public class Inventory : MonoBehaviour {
                 {
                     inventory[i] = new Item();
                 }
+                DrawInventory();
                 return;
             }
         }

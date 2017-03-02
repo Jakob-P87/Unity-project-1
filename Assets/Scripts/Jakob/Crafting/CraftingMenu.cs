@@ -1,19 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CraftingMenu : MonoBehaviour
 {
-    public int slotsX, slotsY;
     public Vector2 pos;
+    public Texture2D pot;
+
     public ItemDatabase database;
     public Inventory inventory;
     bool showCrafting = false;
-    public Texture2D pot;
 
-    public UserStats level;
+    
+
+    //public List<CraftingSlot> newRecipe = new List<CraftingSlot>();
+
+    //[SerializeField]
+    //GameObject CraftingRecipe;
+    //[SerializeField]
+    //GameObject CraftingUI;
+
+    //public UserStats level;
 
     bool itemExist;
+
+    void Start()
+    {
+        //GameObject craftingSlot = Instantiate(CraftingRecipe, CraftingUI.transform);
+        //newRecipe.Add(craftingSlot.GetComponent<CraftingSlot>());
+    }
 
     void Update()
     {
@@ -22,6 +38,19 @@ public class CraftingMenu : MonoBehaviour
             showCrafting = !showCrafting;
         }
     }
+
+    //void DrawCrafting()
+    //{
+    //    newRecipe[0].RecipeIcon.enabled = true;
+    //    newRecipe[0].RecipeIcon.sprite = database.database[2].m_icon;
+    //}
+
+    //public void Toggle()
+    //{
+    //    showInventory = !showInventory;
+    //    InventoryUI.SetActive(showInventory);
+    //    DrawInventory();
+    //}
 
     void OnGUI()
     {
@@ -32,7 +61,7 @@ public class CraftingMenu : MonoBehaviour
     }
 
     void DrawCrafting()
-    { 
+    {
         Rect slotRect = new Rect(pos.x, pos.y, 150, 300);
         GUI.Box(slotRect, "");
 
@@ -46,12 +75,12 @@ public class CraftingMenu : MonoBehaviour
                 craftItem(database.database[2]);
                 inventory.RemoveItem("Red Mushroom");
                 inventory.RemoveItem("Water Bottle");
-                level.curXp += (level.level + 50) / level.level + 3;
+                //level.curXp += (level.level + 50) / level.level + 3;
             }
         }
     }
 
-    void craftItem(Item item)
+    public void craftItem(Item item)
     {
         inventory.AddItem("Health Potion");
     }

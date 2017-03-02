@@ -26,7 +26,7 @@ public class DrinkPotion : MonoBehaviour {
             if (inventory.ItemExist("Health Potion"))
             {
                 inventory.RemoveItem("Health Potion");
-                aB.RemoveItem("Health Potion");
+                //.RemoveItem("Health Potion");
                 Player.curHp = Player.maxHp;
                 audioNew.PlayOneShot(Blub_Potion_Sound, 0.7F);
 
