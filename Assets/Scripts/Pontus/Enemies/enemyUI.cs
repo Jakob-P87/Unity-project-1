@@ -33,7 +33,7 @@ public class enemyUI : MonoBehaviour {
                 {
                     hp.gameObject.SetActive(true);
                 }
-                else if (hit.collider != gameObject.GetComponent<SphereCollider>())
+                else if (hit.collider != gameObject.GetComponent<SphereCollider>() || hit.collider.gameObject == null)
                 {
                     hp.gameObject.SetActive(false);
                 }

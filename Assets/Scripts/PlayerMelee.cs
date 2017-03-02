@@ -38,7 +38,7 @@ public class PlayerMelee : MonoBehaviour
         {
             player.agent.Stop();
             player.LookAt(hit.collider.transform);
-            anim.speed = 2;
+            anim.speed = 3;
             anim.Play("Attack");
             enemy = hit.collider.gameObject.GetComponent<enemyUI>();
             enemy.currentHp -= stats.baseAttackPower;

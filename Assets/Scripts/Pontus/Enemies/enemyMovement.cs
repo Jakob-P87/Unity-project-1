@@ -12,7 +12,7 @@ public class enemyMovement : MonoBehaviour {
     Vector3 lastSeen;
     Vector3 startPos;
     NavMeshAgent agent;
-    enemyStates enemyState;
+    public enemyStates enemyState;
     Animator anim;
 
     void Start ()
