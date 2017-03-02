@@ -30,10 +30,13 @@ public class LevelSystem : MonoBehaviour
         {
             stats.curXp = 0;
             stats.level++;
+<<<<<<< HEAD
             stats.curStrength += 3;
             stats.curVitality += 2;
             stats.curDexterity += 2;
             stats.curHp = stats.maxHp;
+=======
+>>>>>>> 877372159c6297e09d968a10eef6236129e37d98
         }
     }
 }

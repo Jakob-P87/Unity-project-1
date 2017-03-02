@@ -38,10 +38,10 @@ public class PlayerMelee : MonoBehaviour
         {
             player.agent.Stop();
             player.LookAt(hit.collider.transform);
-            anim.speed = 3;
+            anim.speed = 2;
             anim.Play("Attack");
             enemy = hit.collider.gameObject.GetComponent<enemyUI>();
-            enemy.currentHp -= stats.curAttackPower;
+            enemy.currentHp -= stats.baseAttackPower;
         }
     }
 
@@ -49,12 +49,7 @@ public class PlayerMelee : MonoBehaviour
     {
         attacking = true;
         MeleeSwing();
-        float delay = (8 - stats.curAttackSpeed);
-        if (delay <= 0.33f)
-        {
-            delay = 0.33f;
-        }
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(stats.baseAttackSpeed);
         attacking = false;
         yield break;
     }

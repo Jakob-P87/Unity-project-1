@@ -1,10 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class UserStats : MonoBehaviour
-{
-    private float strMultiplier = 0.2f;
-    private float vitMultiplier = 4.0f;
+public class UserStats : MonoBehaviour {
 
     [Header("-Player-")]
     [Space(10, order = 0)]
@@ -113,15 +110,15 @@ public class UserStats : MonoBehaviour
     [Header("-Speccable Stats-")]
     [Space(10, order = 0)]
 
-    public float baseStrength = 16; //Strength
+    public float baseStrength; //Strength
     [Tooltip("Strength Increases Damage")]
     public float curStrength;
 
-    public float baseVitality = 13;
+    public float baseVitality;
     [Tooltip("Vitality Increases HP")]
     public float curVitality;
 
-    public float baseDexterity = 14;
+    public float baseDexterity;
     [Tooltip("Dexterity Increases Attack Speed")]
     public float curDexterity;
 
@@ -133,6 +130,7 @@ public class UserStats : MonoBehaviour
 	void Start ()
     {
         level = 1;
+<<<<<<< HEAD
 
         baseAttackSpeed = 1;
         curStrength = baseStrength;
@@ -141,13 +139,12 @@ public class UserStats : MonoBehaviour
         maxHp = (100) + (curVitality * vitMultiplier);
         curHp = maxHp;
     }
+=======
+	}
+>>>>>>> 877372159c6297e09d968a10eef6236129e37d98
 	
 	// Update is called once per frame
-	void Update ()
-    {
-        curAttackPower = (curStrength * strMultiplier) + baseAttackPower;
-        maxHp = (100) + (curVitality * vitMultiplier);
-
-        curAttackSpeed = baseAttackSpeed + (curDexterity * 0.2f);
+	void Update () {
+		
 	}
 }
