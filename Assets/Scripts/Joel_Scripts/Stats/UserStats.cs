@@ -147,5 +147,6 @@ public class UserStats : MonoBehaviour
     {
         curAttackPower = (curStrength * strMultiplier);
         curAttackSpeed = 3 + (curDexterity * 0.05f);
-	}
+        maxHp = (100) + (curVitality * vitMultiplier);
+    }
 }
