@@ -41,4 +41,8 @@ public class enemyUI : MonoBehaviour {
             }
         }
     }
+    void OnDestroy()
+    {
+        Destroy(hp.gameObject);
+    }
 }

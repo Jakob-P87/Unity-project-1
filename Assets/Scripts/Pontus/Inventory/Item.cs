@@ -12,7 +12,7 @@ public class Item {
     public string m_desc;
     public int m_dmg;
     public int m_def;
-    public Texture2D m_icon;
+    public Sprite m_icon;
     public int m_stackSize = 1;
     
     //public Item(Item other)
@@ -30,7 +30,7 @@ public class Item {
     {
         m_type = type;
         m_id = id;
-        m_icon = Resources.Load<Texture2D>("ItemIcons/" + name);
+        m_icon = Resources.Load<Sprite>("ItemIcons/" + name);
         m_name = name;
         m_dmg = dmg;
         m_def = def;

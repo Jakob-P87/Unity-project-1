@@ -14,6 +14,8 @@ public class enemyMovement : MonoBehaviour {
     NavMeshAgent agent;
     public enemyStates enemyState;
     Animator anim;
+    public UserStats level;
+    public enemyUI enemy;
 
     void Start ()
     {
@@ -75,6 +77,7 @@ public class enemyMovement : MonoBehaviour {
                 anim.SetBool("IsAttacking", false);
                 break;
             case enemyStates.DEAD:
+                //level.curXp += (level.level + 50) / level.level + 3;
                 anim.SetBool("IsDead", true);
                 anim.SetBool("IsAttacking", false);
                 anim.SetBool("IsRunning", false);
@@ -83,7 +86,7 @@ public class enemyMovement : MonoBehaviour {
 	}
     void Attack()
     {
-        if (enemyState == enemyStates.ATTACK)
+        if (enemyState == enemyStates.ATTACK && enemy.currentHp > 0)
         {
             target.GetComponent<playerUI>().TakeDamage(10);
         }

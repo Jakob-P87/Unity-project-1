@@ -39,18 +39,18 @@ public class ActionBar : MonoBehaviour {
         }
     }
 
-    void OnGUI()
-    {
-        for (int x = 0; x < actionBar.Length; x++)
-        {
-            Rect slotRect = new Rect(60 * x + pos.x, 60 + pos.y, 50, 50);
-            GUI.Box(slotRect, (x + 1).ToString());
-            if (actionBar[x].m_name != null)
-            { 
-                GUI.DrawTexture(slotRect, actionBar[x].m_icon);
-            }
-        }
-    }
+    //void OnGUI()
+    //{
+    //    for (int x = 0; x < actionBar.Length; x++)
+    //    {
+    //        Rect slotRect = new Rect(60 * x + pos.x, 60 + pos.y, 50, 50);
+    //        GUI.Box(slotRect, (x + 1).ToString());
+    //        if (actionBar[x].m_name != null)
+    //        { 
+    //            GUI.DrawTexture(slotRect, actionBar[x].m_icon);
+    //        }
+    //    }
+    //}
 
     bool ActionBarContains(string name)
     {

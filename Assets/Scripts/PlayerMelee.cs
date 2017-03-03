@@ -58,7 +58,6 @@ public class PlayerMelee : MonoBehaviour
         {
             delay = 1.5f;
         }
-        Debug.Log(delay.ToString());
         yield return new WaitForSeconds(delay);
         attacking = false;
         yield break;
