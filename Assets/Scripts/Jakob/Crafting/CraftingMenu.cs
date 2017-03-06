@@ -12,71 +12,39 @@ public class CraftingMenu : MonoBehaviour
     public Inventory inventory;
     bool showCrafting = false;
 
-    
-
-    //public List<CraftingSlot> newRecipe = new List<CraftingSlot>();
-
-    //[SerializeField]
-    //GameObject CraftingRecipe;
-    //[SerializeField]
-    //GameObject CraftingUI;
-
-    //public UserStats level;
+    [SerializeField]
+    GameObject CraftingUI;
 
     bool itemExist;
 
     void Start()
     {
-        //GameObject craftingSlot = Instantiate(CraftingRecipe, CraftingUI.transform);
-        //newRecipe.Add(craftingSlot.GetComponent<CraftingSlot>());
+        CraftingUI.SetActive(showCrafting);
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.C))
         {
-            showCrafting = !showCrafting;
+            Toggle();
         }
     }
 
-    //void DrawCrafting()
-    //{
-    //    newRecipe[0].RecipeIcon.enabled = true;
-    //    newRecipe[0].RecipeIcon.sprite = database.database[2].m_icon;
-    //}
-
-    //public void Toggle()
-    //{
-    //    showInventory = !showInventory;
-    //    InventoryUI.SetActive(showInventory);
-    //    DrawInventory();
-    //}
-
-    void OnGUI()
+    public void Toggle()
     {
-        if (showCrafting)
-        {
-            DrawCrafting();
-        }
+        showCrafting = !showCrafting;
+        CraftingUI.SetActive(showCrafting);
     }
 
-    void DrawCrafting()
+    public void CraftPot(int type)
     {
-        Rect slotRect = new Rect(pos.x, pos.y, 150, 300);
-        GUI.Box(slotRect, "");
-
-        Rect button = new Rect(pos.x + 10, pos.y + 10, 50, 50);
-
-        if (GUI.Button(button, pot))
+        //Check to see if we have a mushroom and a water bottle in the inventory before we can craft the potion.
+        if (inventory.ItemExist("Red Mushroom") && inventory.ItemExist("Water Bottle"))
         {
-            //Check to see if we have a mushroom and a water bottle in the inventory before we can craft the potion.
-            if (inventory.ItemExist("Red Mushroom") && inventory.ItemExist("Water Bottle"))
-            {
-                craftItem(database.database[2]);
-                inventory.RemoveItem("Red Mushroom");
-                inventory.RemoveItem("Water Bottle");
-                //level.curXp += (level.level + 50) / level.level + 3;
-            }
+            craftItem(database.database[2]);
+            inventory.RemoveItem("Red Mushroom");
+            inventory.RemoveItem("Water Bottle");
+            //level.curXp += (level.level + 50) / level.level + 3;
         }
     }
 
@@ -84,4 +52,7 @@ public class CraftingMenu : MonoBehaviour
     {
         inventory.AddItem("Health Potion");
     }
+
+
+
 }
