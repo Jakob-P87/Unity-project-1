@@ -54,12 +54,12 @@ public class CharacterGUI : MonoBehaviour
 
     void Update()
     {
+        UpdateTextfields();
         if (Input.GetKeyDown(KeyCode.V))
         {
             panelActive = !panelActive;
             panel.SetActive(panelActive);
-
-            UpdateTextfields();
+            
         }
     }
 
