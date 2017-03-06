@@ -54,7 +54,9 @@ public class CharacterGUI : MonoBehaviour
 
     void Update()
     {
-        UpdateTextfields();
+        if (panelActive)
+            UpdateTextfields();
+
         if (Input.GetKeyDown(KeyCode.V))
         {
             panelActive = !panelActive;
