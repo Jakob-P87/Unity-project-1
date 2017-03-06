@@ -42,12 +42,12 @@ public class enemyMovement : MonoBehaviour {
         else if (distToTarget < attackRange && hit.collider.tag == "Player") //ATTACK
         {
             enemyState = enemyStates.ATTACK;
-        }
-        else if (transform.position == lastSeen && enemyState == enemyStates.IDLE && (hit.collider.tag != "Player" || distToTarget < aggroRange)) //RETURN
+        }      
+        else if (transform.position.x != startPos.x && (hit.collider.tag != "Player" || distToTarget > aggroRange)) //RETURN
         {
             enemyState = enemyStates.RETURN;
         }
-        else //IDLE
+        else if (transform.position.x == startPos.x)//IDLE
         {
             enemyState = enemyStates.IDLE; 
         }
@@ -58,12 +58,14 @@ public class enemyMovement : MonoBehaviour {
                 anim.SetBool("IsRunning", false);
                 anim.SetBool("IsAttacking", false);
                 anim.SetBool("IsDead", false);
+                anim.SetBool("IsIdle", true);
                 break;
             case enemyStates.CHASE:
                 agent.Resume();
                 agent.SetDestination(lastSeen);
                 anim.SetBool("IsRunning", true);
                 anim.SetBool("IsAttacking", false);
+                anim.SetBool("IsIdle", false);
                 break;
             case enemyStates.ATTACK:
                 agent.Stop();
@@ -75,12 +77,14 @@ public class enemyMovement : MonoBehaviour {
                 agent.SetDestination(startPos);
                 anim.SetBool("IsRunning", true);
                 anim.SetBool("IsAttacking", false);
+                anim.SetBool("IsIdle", false);
                 break;
             case enemyStates.DEAD:
                 //level.curXp += (level.level + 50) / level.level + 3;
                 anim.SetBool("IsDead", true);
                 anim.SetBool("IsAttacking", false);
                 anim.SetBool("IsRunning", false);
+                anim.SetBool("IsIdle", false);
                 break;
         }
 	}
