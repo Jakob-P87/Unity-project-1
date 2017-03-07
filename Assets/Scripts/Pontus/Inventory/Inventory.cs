@@ -37,6 +37,10 @@ public class Inventory : MonoBehaviour {
 
             newInventory.Add(inventorySlot.GetComponent<InventorySlot>());
         }
+        AddItem("String");
+        AddItem("Stick");
+        AddItem("Stick");
+        AddItem("Iron");
     }
 
     void Update()
@@ -149,6 +153,15 @@ public class Inventory : MonoBehaviour {
             {
                 return true;
             }
+        }
+        return false;
+    }
+
+    public bool HasRecipe(Item item)
+    {
+        if (ItemExist(item.m_recp.m_material1) && ItemExist(item.m_recp.m_material2))
+        {
+            return true;
         }
         return false;
     }
