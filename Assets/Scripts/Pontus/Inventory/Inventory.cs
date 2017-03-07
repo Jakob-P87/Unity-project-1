@@ -25,6 +25,8 @@ public class Inventory : MonoBehaviour {
     GameObject InventorySlot;
     [SerializeField]
     GameObject InventoryUI;
+    [SerializeField]
+    GameObject InventorySlots;
 
     private void Start()
     {
@@ -33,7 +35,7 @@ public class Inventory : MonoBehaviour {
         for (int i = 0; i < (slotsX * slotsY); i++)
         {
             inventory.Add(new Item());
-            GameObject inventorySlot = Instantiate(InventorySlot, InventoryUI.transform);
+            GameObject inventorySlot = Instantiate(InventorySlot, InventorySlots.transform);
 
             newInventory.Add(inventorySlot.GetComponent<InventorySlot>());
         }
