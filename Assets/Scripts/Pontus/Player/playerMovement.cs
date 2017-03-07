@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 public class playerMovement : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class playerMovement : MonoBehaviour
     Animator anim;
     public playerStates playerState;
     int layerMask = ~(1 << 8);
+
+    int uiMask = (1 << 5);
 
     public UserStats stats;
 
@@ -31,7 +34,13 @@ public class playerMovement : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, 9999999999, layerMask) && hit.collider.tag != "Enemy")
+            // Check if the mouse was clicked over a UI element
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                //Debug.Log("Clicked on the UI");
+            }
+
+            else if (Physics.Raycast(ray, out hit, 9999999999, layerMask) && hit.collider.tag != "Enemy")
             {
                 agent.Resume();
                 agent.SetDestination(hit.point);
