@@ -36,15 +36,16 @@ public class CraftingMenu : MonoBehaviour
         CraftingUI.SetActive(showCrafting);
     }
 
-    public void CraftPot(int type)
+    public void Craft(string itemName)
     {
-        //Check to see if we have a mushroom and a water bottle in the inventory before we can craft the potion.
-        if (inventory.ItemExist("Red Mushroom") && inventory.ItemExist("Water Bottle"))
+        for (int i = 0; i < database.database.Count; i++)
         {
-            craftItem(database.database[2]);
-            inventory.RemoveItem("Red Mushroom");
-            inventory.RemoveItem("Water Bottle");
-            //level.curXp += (level.level + 50) / level.level + 3;
+            if (database.database[i].m_name == itemName && inventory.HasRecipe(database.database[i]))
+            {
+                inventory.AddItem(itemName);
+                inventory.RemoveItem(database.database[i].m_recp.m_mat1);
+                inventory.RemoveItem(database.database[i].m_recp.m_mat2);
+            }
         }
     }
 
@@ -52,7 +53,4 @@ public class CraftingMenu : MonoBehaviour
     {
         inventory.AddItem("Health Potion");
     }
-
-
-
 }

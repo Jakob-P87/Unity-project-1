@@ -42,7 +42,6 @@ public class ItemDrop : MonoBehaviour
     {
         Debug.Log("mhmm");
         yield return new WaitForSeconds(2);
-        level.curXp += (level.level + 50) / level.level + 3;
         DropItem();
         Destroy(gameObject);
         yield break;
