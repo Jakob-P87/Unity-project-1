@@ -27,9 +27,12 @@ public class DrinkPotion : MonoBehaviour {
             {
                 inventory.RemoveItem("Health Potion");
                 //.RemoveItem("Health Potion");
-                Player.curHp = Player.maxHp;
+                Player.curHp += Player.maxHp/2;
                 audioNew.PlayOneShot(Blub_Potion_Sound, 0.7F);
-
+                if(Player.curHp > Player.maxHp)
+                {
+                    Player.curHp = Player.maxHp;
+                }
             }
         }
     }
