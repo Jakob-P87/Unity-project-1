@@ -95,4 +95,9 @@ public class enemyMovement : MonoBehaviour {
             target.GetComponent<playerUI>().TakeDamage(10);
         }
     }
+
+    void OnDestroy()
+    {
+        level.curXp += (level.level + 50) / level.level + 3;
+    }
 }
