@@ -1,8 +1,7 @@
 ﻿[System.Serializable]
 public enum itemType
 {
-    Weapon,
-    Armor,
+    Equipment,
     Material,
     Consumable
 }

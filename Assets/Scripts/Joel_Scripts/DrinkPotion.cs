@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 
 [RequireComponent(typeof(AudioSource))]
@@ -9,8 +8,6 @@ public class DrinkPotion : MonoBehaviour {
 
     public Inventory inventory;
     public ActionBar aB;
-    
-
 
     public AudioClip Blub_Potion_Sound;
     AudioSource audioNew;
@@ -18,8 +15,6 @@ public class DrinkPotion : MonoBehaviour {
     void Start()
     {
         audioNew = GetComponent<AudioSource>();
-        
-        
     }
 
     void Update()
@@ -31,11 +26,14 @@ public class DrinkPotion : MonoBehaviour {
             if (inventory.ItemExist("Health Potion"))
             {
                 inventory.RemoveItem("Health Potion");
-                Player.curHp = Player.maxHp;
+                //.RemoveItem("Health Potion");
+                Player.curHp += Player.maxHp/2;
                 audioNew.PlayOneShot(Blub_Potion_Sound, 0.7F);
-
+                if(Player.curHp > Player.maxHp)
+                {
+                    Player.curHp = Player.maxHp;
+                }
             }
         }
     }
-
 }

@@ -154,4 +154,13 @@ public class Inventory : MonoBehaviour {
         }
         return false;
     }
+
+    public bool HasRecipe(Item item)
+    {
+        if (ItemExist(item.m_recp.m_mat1) && ItemExist(item.m_recp.m_mat2))
+        {
+            return true;
+        }
+        return false;
+    }
 }

@@ -13,13 +13,13 @@ public class ItemDatabase : MonoBehaviour {
 
     void Start()
     {
-        database.Add(new Item(itemType.Weapon, 0, "Wooden Sword", 2, 0, "Baby's first sword"));
-        database.Add(new Item(itemType.Material, 1, "Red Flower", 1, 0, "A red flower"));
-        database.Add(new Item(itemType.Consumable, 2, "Health Potion", 0, 0, "Drink to restore some health"));
-        database.Add(new Item(itemType.Armor, 3, "Chain Mail", 0, 5, "A normal chain mail"));
-        database.Add(new Item(itemType.Material, 4, "Red Mushroom", 0, 0, "Used to make potions"));
-        database.Add(new Item(itemType.Material, 5, "Water Bottle", 0, 0, "Used to make potions"));
-        database.Add(new Item(itemType.Weapon, 6, "Iron Sword", 5, 0, "A bit better than the Wooden Sword"));
+        database.Add(new Item(1, "Red Flower", ""));
+        database.Add(new Item(2, "Red Mushroom", "Used to make health potions"));
+        database.Add(new Item(3, "Water Bottle", "Used to make health potions"));
+        database.Add(new Item(4, "Wooden Sword", 2, "Baby's first sword", new Recipe("Stick", "String")));
+        database.Add(new Item(5, "Iron Sword", 5, "A simple iron sword", new Recipe("Iron", "Stick")));
+        database.Add(new Item(6, "Chain Mail", 3, "A chain mail", new Recipe(null, null)));
+        database.Add(new Item(7, "Health Potion", "A potion to restore health", new Recipe("Red Mushroom", "Water Bottle")));
     }
 
     void Update()
