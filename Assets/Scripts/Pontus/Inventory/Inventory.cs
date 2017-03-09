@@ -53,7 +53,7 @@ public class Inventory : MonoBehaviour {
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-
+            
             if (Physics.Raycast(ray, out hit, 999999, layerMask) && hit.collider.tag == "Pickup")
             {
                 distToPickup = Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, hit.transform.position);
