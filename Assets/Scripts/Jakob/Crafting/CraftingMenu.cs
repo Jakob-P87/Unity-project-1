@@ -48,9 +48,4 @@ public class CraftingMenu : MonoBehaviour
             }
         }
     }
-
-    public void craftItem(Item item)
-    {
-        inventory.AddItem("Health Potion");
-    }
 }
