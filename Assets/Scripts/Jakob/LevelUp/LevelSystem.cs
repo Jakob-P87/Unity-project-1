@@ -12,11 +12,16 @@ public class LevelSystem : MonoBehaviour
 
     public GUIStyle guiLevel;
 
+    public GameObject particleEffectLevel;  //Get gameobject with a particle system in it: in this case the Level Up particle effect
+    StartParticleTest sn;                   //sn = scriptName
+
+
     // Use this for initialization
     void Start ()
     {
         stats = GameObject.FindGameObjectWithTag("Player").GetComponent<UserStats>();
-	}
+        sn = particleEffectLevel.GetComponent<StartParticleTest>();                     //Set sn to a gameobjects script<StartParticleTest>
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -28,6 +33,7 @@ public class LevelSystem : MonoBehaviour
     {
         if (stats.curXp >= ((stats.level + 100) * stats.level + 13))
         {
+            sn.PlayPartEff(); //Plays Particvle Effect for Leveling Up
             stats.curXp = 0;
             stats.level++;
             stats.curStrength += 3;
