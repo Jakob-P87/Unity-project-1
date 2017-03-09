@@ -32,12 +32,17 @@ public class Inventory : MonoBehaviour {
     {
         InventoryUI.SetActive(showInventory);
 
+        foreach(var slot in InventorySlots.GetComponentsInChildren<InventorySlot>())
+        {
+            newInventory.Add(slot);
+        }
+
         for (int i = 0; i < (slotsX * slotsY); i++)
         {
             inventory.Add(new Item());
-            GameObject inventorySlot = Instantiate(InventorySlot, InventorySlots.transform);
+            //GameObject inventorySlot = Instantiate(InventorySlot, InventorySlots.transform);
 
-            newInventory.Add(inventorySlot.GetComponent<InventorySlot>());
+            //newInventory.Add(inventorySlot.GetComponent<InventorySlot>());
         }
     }
 
