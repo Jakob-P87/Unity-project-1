@@ -49,7 +49,7 @@ public class Inventory : MonoBehaviour {
     void Update()
     {
         
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.B))
         {
             Toggle();
         }
