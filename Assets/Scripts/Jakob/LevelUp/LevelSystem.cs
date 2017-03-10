@@ -15,12 +15,19 @@ public class LevelSystem : MonoBehaviour
     public GameObject particleEffectLevel;  //Get gameobject with a particle system in it: in this case the Level Up particle effect
     StartParticleTest sn;                   //sn = scriptName
 
+    public GameObject UITextHandler;
+    UITextHandler lvlUpTxt;
+
+    AudioClipsYo lvlSound;
 
     // Use this for initialization
     void Start ()
     {
         stats = GameObject.FindGameObjectWithTag("Player").GetComponent<UserStats>();
-        sn = particleEffectLevel.GetComponent<StartParticleTest>();                     //Set sn to a gameobjects script<StartParticleTest>
+        sn = particleEffectLevel.GetComponent<StartParticleTest>();                         //Set sn to a gameobjects script<StartParticleTest>
+        lvlSound = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioClipsYo>(); //Set lvlSound to playerGameObjects script<
+        lvlUpTxt = GameObject.FindGameObjectWithTag("eUI").GetComponent<UITextHandler>();
+
     }
 	
 	// Update is called once per frame
@@ -34,6 +41,10 @@ public class LevelSystem : MonoBehaviour
         if (stats.curXp >= ((stats.level + 100) * stats.level + 13))
         {
             sn.PlayPartEff(); //Plays Particvle Effect for Leveling Up
+
+            lvlSound.playLevelUp(); //Plays Sound Effect for Leveling Up
+            StartCoroutine(lvlUpTxt.textShowLevelUp()); //Show Text on Screen When Leveling Up
+
             stats.curXp = 0;
             stats.level++;
             stats.curStrength += 3;
