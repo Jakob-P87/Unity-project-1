@@ -16,6 +16,13 @@ public class EnemyHighlight : MonoBehaviour
     public CursorMode cursorMode = CursorMode.Auto;
     public Vector2 hotSpot = Vector2.zero;
 
+    NPCTalkTo talkToNPC;
+
+    void Start()
+    {
+        talkToNPC = gameObject.GetComponent<NPCTalkTo>();
+    }
+
     void Update()
     {
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);

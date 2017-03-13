@@ -15,7 +15,8 @@ public class ItemDrop : MonoBehaviour
     NavMeshAgent agent;
 
     public UserStats level;
-    
+
+    QuestScript questTask;
 
     // Use this for initialization
     void Start()
@@ -25,6 +26,7 @@ public class ItemDrop : MonoBehaviour
         anim = GetComponent<Animator>();
         enemy = GetComponent<enemyMovement>();
         agent = GetComponent<NavMeshAgent>();
+        questTask = GameObject.FindObjectOfType(typeof(QuestScript)) as QuestScript; //Get QuestScript
     }
 
     // Update is called once per frame
@@ -52,6 +54,7 @@ public class ItemDrop : MonoBehaviour
         {
             goRef = Instantiate(drop, gameObject.transform.position, gameObject.transform.rotation); //creates object on a position (choose in the editor!)
             goRef.name = drop.name;
+            questTask.SpiderQuest();//Calls Function so that QuestScript knows when a spider has been killed
         }
     }
 }
