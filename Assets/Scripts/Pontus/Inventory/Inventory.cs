@@ -31,11 +31,14 @@ public class Inventory : MonoBehaviour {
     private void Start()
     {
         InventoryUI.SetActive(showInventory);
+        InventorySlot[] slots = InventorySlots.GetComponentsInChildren<InventorySlot>();
 
-        foreach(var slot in InventorySlots.GetComponentsInChildren<InventorySlot>())
+        for (int i = 0; i < slots.Length; i++)
         {
-            newInventory.Add(slot);
+            newInventory.Add(slots[i]);
+            slots[i].slotID = i;
         }
+
 
         for (int i = 0; i < (slotsX * slotsY); i++)
         {
@@ -131,13 +134,16 @@ public class Inventory : MonoBehaviour {
         }
     }
 
-    public void RemoveItem(string name)
+    public void RemoveItem(string name, int nr = 1)
     {
         for (int i = 0; i < inventory.Count; i++)
         {
             if (inventory[i].m_name == name)
             {
-                inventory[i].m_stackSize--;
+                if (inventory[i].m_stackSize >= nr)
+                {
+                    inventory[i].m_stackSize -= nr;
+                }
                 if (inventory[i].m_stackSize < 1)
                 {
                     inventory[i] = new Item();
