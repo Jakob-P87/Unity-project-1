@@ -11,18 +11,18 @@ public class enemyMovement : MonoBehaviour {
     public float attackRange;
     public float attackDelay;
     public float attackDmg;
+    public int moreXp;
     Vector3 lastSeen;
     Vector3 startPos;
     NavMeshAgent agent;
     public enemyStates enemyState;
-    public NPCType NPCType;
+    public CharacterType CharacterType;
     Animator anim;
     public UserStats level;
     public enemyUI enemy;
 
     void Start ()
     {
-        NPCType = NPCType.ENEMY;
         anim = GetComponent<Animator>();
         InvokeRepeating("Attack", 0, attackDelay);
         enemyState = enemyStates.IDLE; 
@@ -101,6 +101,6 @@ public class enemyMovement : MonoBehaviour {
 
     void OnDestroy()
     {
-        level.curXp += (level.level + 50) / level.level + 3;
+        level.curXp += (level.level + moreXp) / level.level + 3;
     }
 }

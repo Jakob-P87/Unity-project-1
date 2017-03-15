@@ -13,6 +13,7 @@ public class ItemDrop : MonoBehaviour
     Transform goRef;
     public enemyMovement enemy;
     NavMeshAgent agent;
+    enemyUI UI;
 
     public UserStats level;
 
@@ -23,6 +24,7 @@ public class ItemDrop : MonoBehaviour
     {
         //reference to spider object with the script enemyUI on itself
         //sRef = GameObject.FindGameObjectWithTag("Enemy").GetComponent<enemyUI>();
+        UI = GetComponent<enemyUI>();
         anim = GetComponent<Animator>();
         enemy = GetComponent<enemyMovement>();
         agent = GetComponent<NavMeshAgent>();
@@ -42,7 +44,10 @@ public class ItemDrop : MonoBehaviour
     IEnumerator DestroyObj()
     {
         yield return new WaitForSeconds(2);
+        if (enemy.CharacterType == CharacterType.SPIDER) //Is the GameObject a spider?
+            questTask.SpiderQuest();//Calls Function so that QuestScript knows when a spider has been killed
         DropItem();
+        Destroy(UI.hp.gameObject);
         Destroy(gameObject);
         yield break;
     }
@@ -52,7 +57,6 @@ public class ItemDrop : MonoBehaviour
         {
             goRef = Instantiate(drop, gameObject.transform.position, gameObject.transform.rotation); //creates object on a position (choose in the editor!)
             goRef.name = drop.name;
-            questTask.SpiderQuest();//Calls Function so that QuestScript knows when a spider has been killed
         }
     }
 }
