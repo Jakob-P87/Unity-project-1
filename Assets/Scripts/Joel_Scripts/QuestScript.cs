@@ -15,7 +15,7 @@ public class QuestScript : MonoBehaviour {
         questTask.text = killed.ToString() + "/" + toBeKilled.ToString() + " Spiders Slain"; //Update quest text
     }
 
-    public void SpiderQuest() //Called everytime a spider dies
+    public void SpiderQuest() //Called everytime a spider dies (in the script "ItemDrop"->"DropItem()")
     {
         killed++; //Spider was killed
         if (killed >= toBeKilled)
