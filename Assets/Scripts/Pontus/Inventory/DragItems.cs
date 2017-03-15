@@ -97,29 +97,21 @@ public class DragItems : MonoBehaviour {
 
     public void TossItem()
     {
-        for (int i = 0; i < database.database.Count; i++)
+        if (Resources.Load("Prefabs/" + draggedItem.m_name) == null)
         {
-            if (draggedItem.m_id == database.database[i].m_id)
+            inv.inventory[dragSlotID] = draggedItem;
+            draggedItem = null;
+        }
+        else
+        {
+            for (int i = 0; i < draggedItem.m_stackSize; i++)
             {
-                if (Resources.Load("Prefabs/" + draggedItem.m_name) == null)
-                {
-                    inv.inventory[dragSlotID] = draggedItem;
-                    draggedItem = null;
-                    break;
-                }
-                else
-                {
-                    for (int j = 0; j < draggedItem.m_stackSize; j++)
-                    {
-                        goRef = (GameObject)Instantiate(Resources.Load("Prefabs/" + draggedItem.m_name),
-                                 new Vector3(player.transform.position.x + Random.Range(-2f, 2f), player.transform.position.y, player.transform.position.z + Random.Range(-2f, 2f)),
-                                 player.transform.rotation);                
-                        goRef.name = draggedItem.m_name;
-                    }
-                    draggedItem = null;
-                    break;
-                }
+                goRef = (GameObject)Instantiate(Resources.Load("Prefabs/" + draggedItem.m_name),
+                         new Vector3(player.transform.position.x + Random.Range(-2f, 2f), player.transform.position.y, player.transform.position.z + Random.Range(-2f, 2f)),
+                         player.transform.rotation);                
+                goRef.name = draggedItem.m_name;
             }
+            draggedItem = null;
         }
     }
 }
