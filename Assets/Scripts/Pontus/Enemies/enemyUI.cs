@@ -30,11 +30,11 @@ public class enemyUI : MonoBehaviour {
 
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.collider == gameObject.GetComponent<BoxCollider>())
+                if (hit.collider == gameObject.GetComponent<Collider>())
                 {
                     hp.gameObject.SetActive(true);
                 }
-                else if (hit.collider != gameObject.GetComponent<BoxCollider>() || hit.collider.gameObject == null)
+                else if (hit.collider != gameObject.GetComponent<Collider>() || hit.collider.gameObject == null)
                 {
                     hp.gameObject.SetActive(false);
                 }
