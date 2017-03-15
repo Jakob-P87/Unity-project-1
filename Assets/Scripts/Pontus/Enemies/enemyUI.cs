@@ -8,7 +8,7 @@ public class enemyUI : MonoBehaviour {
     public float maxHp;
     public float currentHp;
     public Slider hpSlider;
-    Slider hp;
+    public Slider hp;
     public Canvas canvas;
 
     void Start ()
@@ -43,6 +43,6 @@ public class enemyUI : MonoBehaviour {
     }
     void OnDestroy()
     {
-        Destroy(hp.gameObject);
+        //Destroy(hp.gameObject);
     }
 }
