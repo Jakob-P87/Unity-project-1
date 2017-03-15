@@ -34,7 +34,6 @@ public class ItemDrop : MonoBehaviour
     {
         if (sRef.currentHp <= 0) //if currentHp <= 0
         {
-            //Debug.Log("Hello");
             agent.Stop();
             StartCoroutine(DestroyObj());
             anim.Play("Dead");
@@ -42,7 +41,6 @@ public class ItemDrop : MonoBehaviour
     }
     IEnumerator DestroyObj()
     {
-        //Debug.Log("mhmm");
         yield return new WaitForSeconds(2);
         DropItem();
         Destroy(gameObject);
