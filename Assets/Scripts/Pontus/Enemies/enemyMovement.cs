@@ -15,14 +15,13 @@ public class enemyMovement : MonoBehaviour {
     Vector3 startPos;
     NavMeshAgent agent;
     public enemyStates enemyState;
-    public NPCType NPCType;
+    public CharacterType CharacterType;
     Animator anim;
     public UserStats level;
     public enemyUI enemy;
 
     void Start ()
     {
-        NPCType = NPCType.ENEMY;
         anim = GetComponent<Animator>();
         InvokeRepeating("Attack", 0, attackDelay);
         enemyState = enemyStates.IDLE; 

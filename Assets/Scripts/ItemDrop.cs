@@ -42,6 +42,8 @@ public class ItemDrop : MonoBehaviour
     IEnumerator DestroyObj()
     {
         yield return new WaitForSeconds(2);
+        if (enemy.CharacterType == CharacterType.SPIDER) //Is the GameObject a spider?
+            questTask.SpiderQuest();//Calls Function so that QuestScript knows when a spider has been killed
         DropItem();
         Destroy(gameObject);
         yield break;
@@ -52,7 +54,6 @@ public class ItemDrop : MonoBehaviour
         {
             goRef = Instantiate(drop, gameObject.transform.position, gameObject.transform.rotation); //creates object on a position (choose in the editor!)
             goRef.name = drop.name;
-            questTask.SpiderQuest();//Calls Function so that QuestScript knows when a spider has been killed
         }
     }
 }
