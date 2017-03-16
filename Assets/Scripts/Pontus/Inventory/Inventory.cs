@@ -14,12 +14,16 @@ public class Inventory : MonoBehaviour {
     // REAL Inventory
     public List<Item> inventory = new List<Item>();
 
+    public List<Item> equipment = new List<Item>();
+
     float distToPickup;
 
     int layerMask = ~(1 << 8);
 
     // Inventory graphical representation
     public List<InventorySlot> newInventory = new List<InventorySlot>();
+
+    public List<EquipmentSlot> newEquipmentSlots = new List<EquipmentSlot>();
 
     [SerializeField]
     GameObject InventorySlot;
@@ -32,6 +36,7 @@ public class Inventory : MonoBehaviour {
     {
         InventoryUI.SetActive(showInventory);
         InventorySlot[] slots = InventorySlots.GetComponentsInChildren<InventorySlot>();
+        EquipmentSlot[] equipSlots = InventoryUI.GetComponentsInChildren<EquipmentSlot>();
 
         for (int i = 0; i < slots.Length; i++)
         {
@@ -39,14 +44,22 @@ public class Inventory : MonoBehaviour {
             slots[i].slotID = i;
         }
 
+        for (int i = 0; i < equipSlots.Length; i++)
+        {
+            newEquipmentSlots.Add(equipSlots[i]);
+            equipSlots[i].equipSlotID = i;
+        }
 
         for (int i = 0; i < (slotsX * slotsY); i++)
         {
             inventory.Add(new Item());
-            //GameObject inventorySlot = Instantiate(InventorySlot, InventorySlots.transform);
-
-            //newInventory.Add(inventorySlot.GetComponent<InventorySlot>());
         }
+
+        foreach (var slot in equipSlots)
+        {
+            equipment.Add(new Item());
+        }
+        AddItem("Iron Sword");
     }
 
     void Update()
@@ -87,6 +100,7 @@ public class Inventory : MonoBehaviour {
         showInventory = !showInventory;
         InventoryUI.SetActive(showInventory);
         DrawInventory();
+        DrawEquipment();
     }
 
     public void DrawInventory()
@@ -104,6 +118,22 @@ public class Inventory : MonoBehaviour {
             {
                 newInventory[i].ItemIcon.enabled = false;
                 newInventory[i].StackSize.enabled = false;
+            }
+        }
+    }
+
+    public void DrawEquipment()
+    {
+        for (int i = 0; i < newEquipmentSlots.Count; i++)
+        {
+            if (equipment[i].m_name != null)
+            {
+                newEquipmentSlots[i].ItemIcon.enabled = true;
+                newEquipmentSlots[i].ItemIcon.sprite = inventory[i].m_icon;
+            }
+            else
+            {
+                newEquipmentSlots[i].ItemIcon.enabled = false;                
             }
         }
     }
@@ -126,7 +156,7 @@ public class Inventory : MonoBehaviour {
                     {
                         inventory[i] = database.database[j];
                         inventory[i].m_stackSize = 1;
-                        DrawInventory();
+                        DrawInventory();                       
                     }
                 }
                 break;
@@ -149,6 +179,49 @@ public class Inventory : MonoBehaviour {
                     inventory[i] = new Item();
                 }
                 DrawInventory();
+                return;
+            }
+        }
+    }
+    
+    public void AddEquipment(string name)
+    {
+        for (int i = 0; i < equipment.Count; i++)
+        {
+            if (equipment[i].m_name == null)
+            {
+                Debug.Log("Add equipment");
+                for (int j = 0; j < inventory.Count; j++)
+                {
+                    if (inventory[j].m_name == name)
+                    {
+                        equipment[i] = inventory[j];
+                        equipment[i].m_stackSize = 1;
+                        DrawInventory();
+                        DrawEquipment();
+                    }
+                }
+                break;
+            }
+        }
+    }
+
+    public void RemoveEquipment(string name, int nr = 1)
+    {
+        for (int i = 0; i < equipment.Count; i++)
+        {
+            if (equipment[i].m_name == name)
+            {
+                if (equipment[i].m_stackSize >= nr)
+                {
+                    equipment[i].m_stackSize -= nr;
+                }
+                if (equipment[i].m_stackSize < 1)
+                {
+                    equipment[i] = new Item();
+                }
+                DrawInventory();
+                DrawEquipment();
                 return;
             }
         }

@@ -11,7 +11,7 @@ public class enemyMovement : MonoBehaviour {
     public float attackRange;
     public float attackDelay;
     public float attackDmg;
-    public int moreXp;
+    public int addXp;
     Vector3 lastSeen;
     Vector3 startPos;
     NavMeshAgent agent;
@@ -101,6 +101,6 @@ public class enemyMovement : MonoBehaviour {
 
     void OnDestroy()
     {
-        level.curXp += (level.level + moreXp) / level.level + 3;
+        level.curXp += (level.level + addXp) / level.level + 3;
     }
 }

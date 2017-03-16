@@ -8,9 +8,10 @@ public class DragItems : MonoBehaviour {
 
     int dragSlotID;
     int dropSlotID;
+    int equipSlotID;
     Inventory inv;
     Item draggedItem = null;
-    public Sprite backgroundSprite;
+    Item equipedItem = null;
     PointerEventData data;
     GameObject player;
     GameObject goRef;
@@ -26,6 +27,7 @@ public class DragItems : MonoBehaviour {
 
     void Update()
     {
+        //Drag item
         if (Input.GetButtonDown("LeftMouseButton"))
         {
             GraphicRaycaster ray = gameObject.GetComponent<GraphicRaycaster>();
@@ -40,15 +42,22 @@ public class DragItems : MonoBehaviour {
                     dragSlotID = results[i].gameObject.GetComponent<InventorySlot>().slotID;
                     DragItem(dragSlotID);
                 }
+                else if (results[i].gameObject.GetComponent<EquipmentSlot>() && draggedItem == null)
+                {
+                    dragSlotID = results[i].gameObject.GetComponent<EquipmentSlot>().equipSlotID;
+                    DragItem(dragSlotID);
+                }
             }
         }
+
+        //Drop item
         if (Input.GetButtonUp("LeftMouseButton"))
         {
             GraphicRaycaster ray = gameObject.GetComponent<GraphicRaycaster>();
             data.position = Input.mousePosition;
             List<RaycastResult> results = new List<RaycastResult>();
             ray.Raycast(data, results);
-
+            
             for (int i = 0; i < results.Count; i++)
             {
                 if (results[i].gameObject.GetComponent<InventorySlot>() && draggedItem != null)
@@ -64,6 +73,42 @@ public class DragItems : MonoBehaviour {
                 TossItem();
             }
             inv.DrawInventory();
+        }
+
+        //Equip item in inventory on right click
+        if (Input.GetButtonDown("RightMouseButton"))
+        {
+            GraphicRaycaster ray = gameObject.GetComponent<GraphicRaycaster>();
+            data.position = Input.mousePosition;
+            List<RaycastResult> results = new List<RaycastResult>();
+            ray.Raycast(data, results);
+            
+            for (int i = 0; i < results.Count; i++)
+            {
+                if (results[i].gameObject.GetComponent<InventorySlot>())
+                {
+                    dragSlotID = results[i].gameObject.GetComponent<InventorySlot>().slotID;
+                    EquipItem(dragSlotID);
+                }
+            }
+        }
+
+        //Unequip item on right click
+        if (Input.GetButtonDown("RightMouseButton"))
+        {
+            GraphicRaycaster ray = gameObject.GetComponent<GraphicRaycaster>();
+            data.position = Input.mousePosition;
+            List<RaycastResult> results = new List<RaycastResult>();
+            ray.Raycast(data, results);
+
+            for (int i = 0; i < results.Count; i++)
+            {
+                if (results[i].gameObject.GetComponent<EquipmentSlot>())
+                {
+                    dropSlotID = results[i].gameObject.GetComponent<EquipmentSlot>().equipSlotID;
+                    UnequipItem(dragSlotID);
+                }
+            }
         }
     }
 
@@ -84,6 +129,7 @@ public class DragItems : MonoBehaviour {
 
         if (item.m_name == null)
         {
+            Debug.Log(draggedItem.m_type);
             inv.inventory[id] = draggedItem;
             draggedItem = null;
         }
@@ -92,6 +138,32 @@ public class DragItems : MonoBehaviour {
             inv.inventory[dragSlotID] = inv.inventory[id];
             inv.inventory[id] = draggedItem;
             draggedItem = null;
+        }
+    }
+
+    public void UnequipItem(int id)
+    {
+        Item item = inv.equipment[id];
+
+        if (item.m_name != null)
+        {
+            draggedItem = new Item(item);
+            inv.AddItem(draggedItem.m_name);
+            inv.RemoveEquipment(draggedItem.m_name);
+            draggedItem = null;
+        }
+    }
+
+    public void EquipItem(int id)
+    {
+        Item item = inv.inventory[id];
+        
+        if (item.m_name != null && item.m_type == itemType.Equipment)
+        {
+            equipedItem = new Item(item);
+            inv.AddEquipment(equipedItem.m_name);
+            inv.RemoveItem(equipedItem.m_name);
+            equipedItem = null;
         }
     }
 
