@@ -11,7 +11,7 @@ public class playerMovement : MonoBehaviour
     public playerStates playerState;
     int layerMask = ~(1 << 8);
 
-    int uiMask = (1 << 5);
+    //int uiMask = (1 << 5);
 
     public UserStats stats;
 
@@ -37,6 +37,7 @@ public class playerMovement : MonoBehaviour
             // Check if the mouse was clicked over a UI element
             if (EventSystem.current.IsPointerOverGameObject())
             {
+                
                 //Debug.Log("Clicked on the UI");
             }
 

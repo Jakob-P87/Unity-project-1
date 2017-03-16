@@ -8,7 +8,7 @@ public class enemyUI : MonoBehaviour {
     public float maxHp;
     public float currentHp;
     public Slider hpSlider;
-    Slider hp;
+    public Slider hp;
     public Canvas canvas;
 
     void Start ()
@@ -30,11 +30,11 @@ public class enemyUI : MonoBehaviour {
 
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.collider == gameObject.GetComponent<BoxCollider>())
+                if (hit.collider == gameObject.GetComponent<Collider>())
                 {
                     hp.gameObject.SetActive(true);
                 }
-                else if (hit.collider != gameObject.GetComponent<BoxCollider>() || hit.collider.gameObject == null)
+                else if (hit.collider != gameObject.GetComponent<Collider>() || hit.collider.gameObject == null)
                 {
                     hp.gameObject.SetActive(false);
                 }
@@ -43,6 +43,6 @@ public class enemyUI : MonoBehaviour {
     }
     void OnDestroy()
     {
-        Destroy(hp.gameObject);
+        //Destroy(hp.gameObject);
     }
 }

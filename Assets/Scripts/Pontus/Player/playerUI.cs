@@ -22,7 +22,7 @@ public class playerUI : MonoBehaviour {
         xpSlider.maxValue = ((stats.level + 100) * stats.level + 13);
     }
 
-    public void TakeDamage (int amount)
+    public void TakeDamage (float amount)
     {
         stats.curHp -= amount;
         if(stats.curHp < 0)

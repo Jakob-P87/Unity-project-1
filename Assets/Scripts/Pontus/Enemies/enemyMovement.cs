@@ -9,10 +9,14 @@ public class enemyMovement : MonoBehaviour {
     private float distToTarget;
     public float aggroRange;
     public float attackRange;
+    public float attackDelay;
+    public float attackDmg;
+    public int moreXp;
     Vector3 lastSeen;
     Vector3 startPos;
     NavMeshAgent agent;
     public enemyStates enemyState;
+    public CharacterType CharacterType;
     Animator anim;
     public UserStats level;
     public enemyUI enemy;
@@ -20,7 +24,7 @@ public class enemyMovement : MonoBehaviour {
     void Start ()
     {
         anim = GetComponent<Animator>();
-        InvokeRepeating("Attack", 0, 1.0f);
+        InvokeRepeating("Attack", 0, attackDelay);
         enemyState = enemyStates.IDLE; 
         agent = GetComponent<NavMeshAgent>();
         startPos = transform.position;
@@ -80,7 +84,6 @@ public class enemyMovement : MonoBehaviour {
                 anim.SetBool("IsIdle", false);
                 break;
             case enemyStates.DEAD:
-                //level.curXp += (level.level + 50) / level.level + 3;
                 anim.SetBool("IsDead", true);
                 anim.SetBool("IsAttacking", false);
                 anim.SetBool("IsRunning", false);
@@ -92,12 +95,12 @@ public class enemyMovement : MonoBehaviour {
     {
         if (enemyState == enemyStates.ATTACK && enemy.currentHp > 0)
         {
-            target.GetComponent<playerUI>().TakeDamage(10);
+            target.GetComponent<playerUI>().TakeDamage(attackDmg);
         }
     }
 
     void OnDestroy()
     {
-        level.curXp += (level.level + 50) / level.level + 3;
+        level.curXp += (level.level + moreXp) / level.level + 3;
     }
 }

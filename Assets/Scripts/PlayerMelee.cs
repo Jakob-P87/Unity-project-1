@@ -54,7 +54,7 @@ public class PlayerMelee : MonoBehaviour
         {
             delay = 0.33f;
         }
-        else if(delay >= 1.5f)
+        else if (delay >= 1.5f)
         {
             delay = 1.5f;
         }

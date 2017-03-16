@@ -13,18 +13,22 @@ public class ItemDrop : MonoBehaviour
     Transform goRef;
     public enemyMovement enemy;
     NavMeshAgent agent;
+    enemyUI UI;
 
     public UserStats level;
-    
+
+    QuestScript questTask;
 
     // Use this for initialization
     void Start()
     {
         //reference to spider object with the script enemyUI on itself
         //sRef = GameObject.FindGameObjectWithTag("Enemy").GetComponent<enemyUI>();
+        UI = GetComponent<enemyUI>();
         anim = GetComponent<Animator>();
         enemy = GetComponent<enemyMovement>();
         agent = GetComponent<NavMeshAgent>();
+        questTask = GameObject.FindObjectOfType(typeof(QuestScript)) as QuestScript; //Get QuestScript
     }
 
     // Update is called once per frame
@@ -32,7 +36,6 @@ public class ItemDrop : MonoBehaviour
     {
         if (sRef.currentHp <= 0) //if currentHp <= 0
         {
-            //Debug.Log("Hello");
             agent.Stop();
             StartCoroutine(DestroyObj());
             anim.Play("Dead");
@@ -40,9 +43,11 @@ public class ItemDrop : MonoBehaviour
     }
     IEnumerator DestroyObj()
     {
-        //Debug.Log("mhmm");
         yield return new WaitForSeconds(2);
+        if (enemy.CharacterType == CharacterType.SPIDER) //Is the GameObject a spider?
+            questTask.SpiderQuest();//Calls Function so that QuestScript knows when a spider has been killed
         DropItem();
+        Destroy(UI.hp.gameObject);
         Destroy(gameObject);
         yield break;
     }
