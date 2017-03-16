@@ -9,10 +9,11 @@ public class enemyUI : MonoBehaviour {
     public float currentHp;
     public Slider hpSlider;
     public Slider hp;
-    public Canvas canvas;
+    private Canvas canvas;
 
     void Start ()
     {
+        canvas = GameObject.FindObjectOfType<Canvas>();
         hp = (Slider)Instantiate(hpSlider);
         hp.transform.SetParent(canvas.transform, false);
         hp.maxValue = maxHp;
