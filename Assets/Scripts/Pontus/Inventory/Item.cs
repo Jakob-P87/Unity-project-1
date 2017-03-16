@@ -54,7 +54,7 @@ public class Item {
     //Copy Constructor
     public Item(Item itemOther)
     {
-        m_type = itemType.Equipment;
+        m_type = itemOther.m_type;
         m_id = itemOther.m_id;
         m_icon = Resources.Load<Sprite>("ItemIcons/" + itemOther.m_name);
         m_name = itemOther.m_name;
