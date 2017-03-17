@@ -8,6 +8,9 @@ public class UITextHandler : MonoBehaviour {
 
 
     public GameObject lvlUpTxt;
+    public GameObject questLog;
+    public GameObject questNDT;
+    public Dropdown questBrowser;
 
     bool showText = false;
 
@@ -15,6 +18,26 @@ public class UITextHandler : MonoBehaviour {
 	void Start () {
         lvlUpTxt.SetActive(showText);
     }
+
+    void Update()
+    {
+
+        if(Input.GetKeyDown(KeyCode.T))
+        {
+            ToggleQuestLog();
+        }
+
+        if (questBrowser.value == 0)
+        {
+            
+        }
+
+        
+        
+    }
+
+
+    
 
     public IEnumerator textShowLevelUp()
     {
@@ -25,6 +48,14 @@ public class UITextHandler : MonoBehaviour {
         lvlUpTxt.SetActive(showText);
     }
 
+    void ToggleQuestLog()
+    {
+        if (!questLog.activeSelf)
+            questLog.SetActive(true);
+        else if (questLog.activeSelf)
+            questLog.SetActive(false);
+    }
+    
   
 
 
