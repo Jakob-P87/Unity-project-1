@@ -38,6 +38,7 @@ public class NPCTalkTo : MonoBehaviour {
         {
             case CharacterType.KNIGHT:
                 StartCoroutine(talkingToKnight());
+                questScript.SpiderQuest2(); // Start a Spider Quest
                 break;
             case CharacterType.RANGER:
                 StartCoroutine(talkingToRanger());

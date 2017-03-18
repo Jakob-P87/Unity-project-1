@@ -7,11 +7,11 @@ using UnityEngine;
 public class Quest {
 
     [SerializeField]
-    string m_questName;
+    public string m_questName;
     [SerializeField]
-    string m_questDesc;
+    public string m_questDesc;
     [SerializeField]
-    string m_questTask;
+    public string m_questTask;
 
     [SerializeField]
     int m_task1;

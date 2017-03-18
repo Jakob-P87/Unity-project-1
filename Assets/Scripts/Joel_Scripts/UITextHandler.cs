@@ -12,11 +12,20 @@ public class UITextHandler : MonoBehaviour {
     public GameObject questNDT;
     public Dropdown questBrowser;
 
+  
+
+    public QuestScript questScript;
+
+
+
     bool showText = false;
 
 	// Use this for initialization
 	void Start () {
+
+
         lvlUpTxt.SetActive(showText);
+        questScript = GetComponent<QuestScript>();
     }
 
     void Update()
@@ -27,17 +36,17 @@ public class UITextHandler : MonoBehaviour {
             ToggleQuestLog();
         }
 
-        if (questBrowser.value == 0)
-        {
-            
-        }
-
-        
+        //Everything regarding quest texts changes when choosing corresponding option in the questBrowser(dropdown)
+            questScript.t_questName.text = questScript.quests[questBrowser.value].m_questName;
+            questScript.t_questDescription.text = questScript.quests[questBrowser.value].m_questDesc;
+            questScript.t_questTask.text = questScript.quests[questBrowser.value].m_questTask;
         
     }
 
-
-    
+    void OnMouseDown()
+    {
+        
+    }
 
     public IEnumerator textShowLevelUp()
     {

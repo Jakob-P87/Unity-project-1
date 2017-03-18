@@ -22,19 +22,17 @@ public class QuestScript : MonoBehaviour {
     public List<Quest> quests = new List<Quest>();
     List<string> questListName = new List<string>();
 
-
     void Start()
     {
+        textHandling = GetComponent<UITextHandler>();
 
         t_questName.gameObject.SetActive(true);
         t_questDescription.gameObject.SetActive(true);
         t_questTask.gameObject.SetActive(true);
 
-        textHandling = GetComponent<UITextHandler>();
-
-        SpiderQuest2();
+        SpiderQuest2(); //Quest Start
         
-        ZombieQuest();
+        ZombieQuest(); //Quest Start
         
     }
 
@@ -42,20 +40,17 @@ public class QuestScript : MonoBehaviour {
     {
         if (textHandling.questBrowser.value == 0)
         {
-            ChangeText(questName, questDescription, questTask);
+            //ChangeText(questName, questDescription, questTask);
         }
         if (textHandling.questBrowser.value == 0)
         {
-            ChangeText(questName, questDescription, questTask);
+           // ChangeText(questName, questDescription, questTask);
         }
     }
 
-    public void ChangeText(string qName, string qDesc, string qTask)
-    {
-        t_questName.text = qName;
-        t_questDescription.text = qDesc;
-        t_questTask.text = qTask;
-    }
+
+
+    //Add Quests Here:
 
     public void ZombieQuest()
     {
@@ -75,6 +70,7 @@ public class QuestScript : MonoBehaviour {
 
         quests.Add(new Quest(questName, questDescription, questTask, task1, taskMax1, questComplete));
         textHandling.questBrowser.AddOptions(questListName);
+        
 
     }
 
@@ -91,15 +87,14 @@ public class QuestScript : MonoBehaviour {
         questName = qName;
         questDescription = qDesc;
         questTask = qTask;
-
+       
         questListName.Clear();
         questListName.Add(qName);
 
         quests.Add(new Quest(questName, questDescription, questTask, task1, taskMax1, questComplete));
         textHandling.questBrowser.AddOptions(questListName);
-
-       
         
+
     }
 
     public void SpiderQuest() //Called everytime a spider dies (in the script "ItemDrop"->"DropItem()")
@@ -118,6 +113,15 @@ public class QuestScript : MonoBehaviour {
     }
 
 
+
+    //Not Used:
+
+    public void ChangeText(string qName, string qDesc, string qTask)
+    {
+        t_questName.text = qName;
+        t_questDescription.text = qDesc;
+        t_questTask.text = qTask;
+    }
 }
 
 
