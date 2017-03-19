@@ -14,15 +14,19 @@ public class Quest {
     public string m_questTask;
 
     [SerializeField]
-    int m_task1;
+    public int m_task1;
     [SerializeField]
-    int m_taskMax1;
+    public int m_taskMax1;
 
     [SerializeField]
-    bool m_completed;
+    public int m_questReward;
+
+    [SerializeField]
+    public bool m_completed;
 
     //Standard Kill/Gather 1 type of object
-    public Quest(string questName, string questDesc, string questTask, int task1, int taskMax1, bool completed)
+    //string questName, string questDesc, string questTask, int task1, int taskMax1, bool completed, int questReward
+    public Quest(string questName, string questDesc, string questTask, int task1, int taskMax1, bool completed, int questReward)
     {
 
         m_questName = questName;
@@ -32,7 +36,10 @@ public class Quest {
         m_task1 = task1;
         m_taskMax1 = taskMax1;
 
+        m_questReward = questReward;
+
         m_completed = completed;
+
     }
 
     public Quest()

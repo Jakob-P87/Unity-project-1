@@ -9,6 +9,7 @@ public class NPCTalkTo : MonoBehaviour {
     public Text npcName;
     public Text dialougeText;
     QuestScript questScript;
+    public UserStats level;
 
     public CharacterType NPC;
 
@@ -19,6 +20,7 @@ public class NPCTalkTo : MonoBehaviour {
     {
         //dialougeScreen.gameObject.SetActive(false);
         questScript = FindObjectOfType(typeof(QuestScript)) as QuestScript;
+        level = FindObjectOfType(typeof(UserStats)) as UserStats;
     }
 
     void OnMouseUp()
@@ -87,6 +89,17 @@ public class NPCTalkTo : MonoBehaviour {
         yield return new WaitForSeconds(0.4f);
         yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
         dialougeText.text = "Paladin yes?";
+        yield return new WaitForSeconds(0.4f);
+        yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+        dialougeText.text = "Completed quests now rewarded";
+        for (int i = 0; i < questScript.quests.Count; i++)
+        {
+            if (questScript.quests[i].m_completed)
+            {
+                level.curXp += questScript.quests[i].m_questReward; //Give curXp questReward amount (for every completed quest)
+                //Make something here which wont give XP by talking again? Perhaps set m_completed = false? No cuz it will be set to true again...
+            }
+        }
         yield return new WaitForSeconds(0.4f);
         yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
         dialougeText.text = "I'm sure our ways will cross again.";

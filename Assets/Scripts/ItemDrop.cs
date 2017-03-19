@@ -19,6 +19,8 @@ public class ItemDrop : MonoBehaviour
     QuestScript questTask;
     GetObjectType characterType;
 
+    bool doneOnce = false;
+
     // Use this for initialization
     void Start()
     {
@@ -34,19 +36,33 @@ public class ItemDrop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(doneOnce);
         if (sRef.currentHp <= 0) //if currentHp <= 0
         {
-            agent.Stop();
-            StartCoroutine(DestroyObj());
-            anim.Play("Dead");
+            agent.Stop(); //Stops the object from moving when dead
+            if (!doneOnce)
+            {
+                StartCoroutine(DestroyObj());
+                anim.Play("Dead");
+                doneOnce = true;
+            }
         }
     }
     IEnumerator DestroyObj()
     {
-        yield return new WaitForSeconds(2);
-        if (characterType.CharacterType == CharacterType.SPIDER) //Is the GameObject a spider?
-            questTask.SpiderQuest();//Calls Function so that QuestScript knows when a spider has been killed
+        //Quest Related
+        if(characterType.CharacterType == CharacterType.SPIDER)
+            questTask.quests[questTask.spiderQuestNum].m_task1++;
+        if (characterType.CharacterType == CharacterType.ZOMBIE)
+            questTask.quests[questTask.zombieQuestNum].m_task1++;
+        questTask.QuestUpdate();
+        //~Quest Related
+
+
+
         DropItem();
+        yield return new WaitForSeconds(2);
+        
         Destroy(UI.hp.gameObject);
         Destroy(gameObject);
         yield break;

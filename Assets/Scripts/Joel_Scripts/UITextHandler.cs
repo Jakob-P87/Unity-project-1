@@ -39,7 +39,20 @@ public class UITextHandler : MonoBehaviour {
         //Everything regarding quest texts changes when choosing corresponding option in the questBrowser(dropdown)
             questScript.t_questName.text = questScript.quests[questBrowser.value].m_questName;
             questScript.t_questDescription.text = questScript.quests[questBrowser.value].m_questDesc;
-            questScript.t_questTask.text = questScript.quests[questBrowser.value].m_questTask;
+            questScript.t_questTask.text = questScript.quests[questBrowser.value].m_questTask + questScript.quests[questBrowser.value].m_task1 + "/" + questScript.quests[questBrowser.value].m_taskMax1;
+
+        if(questScript.quests[questBrowser.value].m_completed)
+        {
+            questScript.t_questName.color = Color.gray;
+            questScript.t_questDescription.color = Color.gray;
+            questScript.t_questTask.color = Color.gray;
+        }
+        else
+        {
+            questScript.t_questName.color = Color.black;
+            questScript.t_questDescription.color = Color.black;
+            questScript.t_questTask.color = Color.black;
+        }
         
     }
 
