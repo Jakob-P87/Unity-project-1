@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 public class UserStats : MonoBehaviour
 {
+    Inventory inv;
+    private float wpnDmg;
+
     private float vitMultiplier = 4;
     private float strMultiplier = 0.2f;
 
@@ -134,6 +137,8 @@ public class UserStats : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
+        inv = GameObject.FindGameObjectWithTag("Inventory").GetComponent<Inventory>();
+
         level = 1;
 
         baseAttackSpeed = 1;
@@ -149,7 +154,20 @@ public class UserStats : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        curAttackPower = (curStrength * strMultiplier);
+        
+    }
+
+    public void UpdateStats()
+    {
+        wpnDmg = 0;
+        foreach (var item in inv.equipment)
+        {
+            if (item.m_name != null)
+            {
+                wpnDmg += item.m_dmg;
+            }
+        }
+        curAttackPower = (curStrength * strMultiplier) + wpnDmg;
         curAttackSpeed = 3 + (curDexterity * 0.05f);
         maxHp = (100) + (curVitality * vitMultiplier);
     }

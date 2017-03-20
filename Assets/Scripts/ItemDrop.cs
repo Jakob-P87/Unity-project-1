@@ -36,7 +36,7 @@ public class ItemDrop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(doneOnce);
+        //Debug.Log(doneOnce);
         if (sRef.currentHp <= 0) //if currentHp <= 0
         {
             agent.Stop(); //Stops the object from moving when dead
