@@ -42,11 +42,11 @@ public class DragItems : MonoBehaviour {
                     dragSlotID = results[i].gameObject.GetComponent<InventorySlot>().slotID;
                     DragItem(dragSlotID);
                 }
-                else if (results[i].gameObject.GetComponent<EquipmentSlot>() && draggedItem == null)
-                {
-                    dragSlotID = results[i].gameObject.GetComponent<EquipmentSlot>().equipSlotID;
-                    DragItem(dragSlotID);
-                }
+                //else if (results[i].gameObject.GetComponent<EquipmentSlot>() && draggedItem == null)
+                //{
+                //    dragSlotID = results[i].gameObject.GetComponent<EquipmentSlot>().equipSlotID;
+                //    DragItem(dragSlotID);
+                //}
             }
         }
 
@@ -87,8 +87,8 @@ public class DragItems : MonoBehaviour {
             {
                 if (results[i].gameObject.GetComponent<InventorySlot>())
                 {
-                    dragSlotID = results[i].gameObject.GetComponent<InventorySlot>().slotID;
-                    EquipItem(dragSlotID);
+                    equipSlotID = results[i].gameObject.GetComponent<InventorySlot>().slotID;
+                    EquipItem(equipSlotID);
                 }
             }
         }
@@ -106,7 +106,7 @@ public class DragItems : MonoBehaviour {
                 if (results[i].gameObject.GetComponent<EquipmentSlot>())
                 {
                     dropSlotID = results[i].gameObject.GetComponent<EquipmentSlot>().equipSlotID;
-                    UnequipItem(dragSlotID);
+                    UnequipItem(dropSlotID);
                 }
             }
         }
@@ -129,7 +129,6 @@ public class DragItems : MonoBehaviour {
 
         if (item.m_name == null)
         {
-            Debug.Log(draggedItem.m_type);
             inv.inventory[id] = draggedItem;
             draggedItem = null;
         }
@@ -141,28 +140,26 @@ public class DragItems : MonoBehaviour {
         }
     }
 
-    public void UnequipItem(int id)
-    {
-        Item item = inv.equipment[id];
-
-        if (item.m_name != null)
-        {
-            draggedItem = new Item(item);
-            inv.AddItem(draggedItem.m_name);
-            inv.RemoveEquipment(draggedItem.m_name);
-            draggedItem = null;
-        }
-    }
-
     public void EquipItem(int id)
     {
         Item item = inv.inventory[id];
-        
+
         if (item.m_name != null && item.m_type == itemType.Equipment)
         {
             equipedItem = new Item(item);
             inv.AddEquipment(equipedItem.m_name);
-            inv.RemoveItem(equipedItem.m_name);
+            equipedItem = null;
+        }
+    }
+
+    public void UnequipItem(int id)
+    {
+        Item item = inv.equipment[id];
+
+        if (item.m_name != null && item.m_type == itemType.Equipment)
+        {
+            equipedItem = new Item(item);
+            inv.RemoveEquipment(equipedItem.m_name);
             equipedItem = null;
         }
     }

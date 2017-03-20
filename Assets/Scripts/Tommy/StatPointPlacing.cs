@@ -15,6 +15,7 @@ public class StatPointPlacing : MonoBehaviour
             stats.curStrength += 1;
             stats.statPoints -= 1;
         }
+        stats.UpdateStats();
     }
     public void VitStatPoint()
     {
@@ -23,6 +24,7 @@ public class StatPointPlacing : MonoBehaviour
             stats.curVitality += 1;
             stats.statPoints -= 1;
         }
+        stats.UpdateStats();
     }
     public void DexStatPoint()
     {
@@ -31,5 +33,6 @@ public class StatPointPlacing : MonoBehaviour
             stats.curDexterity += 1;
             stats.statPoints -= 1;
         }
+        stats.UpdateStats();
     }
 }

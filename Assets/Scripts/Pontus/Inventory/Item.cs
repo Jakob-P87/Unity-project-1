@@ -56,8 +56,8 @@ public class Item {
     {
         m_type = itemOther.m_type;
         m_id = itemOther.m_id;
-        m_icon = Resources.Load<Sprite>("ItemIcons/" + itemOther.m_name);
         m_name = itemOther.m_name;
+        m_icon = Resources.Load<Sprite>("ItemIcons/" + itemOther.m_name);
         m_dmg = itemOther.m_dmg;
         m_desc = itemOther.m_desc;
         m_recp = itemOther.m_recp;

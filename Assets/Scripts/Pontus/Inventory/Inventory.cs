@@ -32,11 +32,15 @@ public class Inventory : MonoBehaviour {
     [SerializeField]
     GameObject InventorySlots;
 
+    UserStats stats;
+
     private void Start()
     {
         InventoryUI.SetActive(showInventory);
         InventorySlot[] slots = InventorySlots.GetComponentsInChildren<InventorySlot>();
         EquipmentSlot[] equipSlots = InventoryUI.GetComponentsInChildren<EquipmentSlot>();
+
+        stats = GameObject.FindGameObjectWithTag("Player").GetComponent<UserStats>();
 
         for (int i = 0; i < slots.Length; i++)
         {
@@ -59,6 +63,14 @@ public class Inventory : MonoBehaviour {
         {
             equipment.Add(new Item());
         }
+        AddItem("Iron Sword");
+        AddItem("Iron Sword");
+        AddItem("Iron Sword");
+        AddItem("Iron Sword");
+        AddItem("Iron Sword");
+        AddItem("Iron Sword");
+        AddItem("Iron Sword");
+        AddItem("Iron Sword");
         AddItem("Iron Sword");
     }
 
@@ -129,7 +141,7 @@ public class Inventory : MonoBehaviour {
             if (equipment[i].m_name != null)
             {
                 newEquipmentSlots[i].ItemIcon.enabled = true;
-                newEquipmentSlots[i].ItemIcon.sprite = inventory[i].m_icon;
+                newEquipmentSlots[i].ItemIcon.sprite = equipment[i].m_icon;
             }
             else
             {
@@ -146,6 +158,7 @@ public class Inventory : MonoBehaviour {
             {
                 inventory[i].m_stackSize++;
                 DrawInventory();
+                //DrawEquipment();
                 break;
             }       
             else if(inventory[i].m_name == null && !ItemExist(name))
@@ -156,7 +169,8 @@ public class Inventory : MonoBehaviour {
                     {
                         inventory[i] = database.database[j];
                         inventory[i].m_stackSize = 1;
-                        DrawInventory();                       
+                        DrawInventory();
+                        //DrawEquipment();    
                     }
                 }
                 break;
@@ -178,6 +192,7 @@ public class Inventory : MonoBehaviour {
                 {
                     inventory[i] = new Item();
                 }
+                //DrawEquipment();
                 DrawInventory();
                 return;
             }
@@ -188,17 +203,22 @@ public class Inventory : MonoBehaviour {
     {
         for (int i = 0; i < equipment.Count; i++)
         {
+            if (i > 4)
+            {
+                return;
+            }
             if (equipment[i].m_name == null)
             {
-                Debug.Log("Add equipment");
                 for (int j = 0; j < inventory.Count; j++)
                 {
                     if (inventory[j].m_name == name)
                     {
-                        equipment[i] = inventory[j];
-                        equipment[i].m_stackSize = 1;
-                        DrawInventory();
+                        Item item = new Item(inventory[j]);
+                        item.m_stackSize = 1;
+                        equipment[i] = item;
+                        RemoveItem(name);
                         DrawEquipment();
+                        stats.UpdateStats();
                     }
                 }
                 break;
@@ -220,8 +240,10 @@ public class Inventory : MonoBehaviour {
                 {
                     equipment[i] = new Item();
                 }
-                DrawInventory();
+                //DrawInventory();
+                AddItem(name);
                 DrawEquipment();
+                stats.UpdateStats();
                 return;
             }
         }
