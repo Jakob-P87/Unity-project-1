@@ -150,5 +150,3 @@ public class QuestScript : MonoBehaviour {
         t_questTask.text = killed.ToString() + "/" + toBeKilled.ToString() + " Spiders Slain"; //Update quest text
     }
 }
-
-
