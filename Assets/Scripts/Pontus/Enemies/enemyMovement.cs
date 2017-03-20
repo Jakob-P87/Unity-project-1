@@ -16,7 +16,6 @@ public class enemyMovement : MonoBehaviour {
     Vector3 startPos;
     NavMeshAgent agent;
     public enemyStates enemyState;
-    public CharacterType CharacterType;
     Animator anim;
     public UserStats level;
     public enemyUI enemy;

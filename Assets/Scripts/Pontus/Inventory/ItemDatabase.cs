@@ -16,6 +16,9 @@ public class ItemDatabase : MonoBehaviour {
         database.Add(new Item(1, "Red Flower", ""));
         database.Add(new Item(2, "Red Mushroom", "Used to make health potions"));
         database.Add(new Item(3, "Water Bottle", "Used to make health potions"));
+        database.Add(new Item(4, "Leather", ""));
+        database.Add(new Item(5, "Iron Bar", ""));
+        database.Add(new Item(6, "Wooden Log", ""));
 
         //Equipment
         database.Add(new Item(4, "Wooden Sword", 2, "Baby's first sword", new Recipe("Stick", "String")));
