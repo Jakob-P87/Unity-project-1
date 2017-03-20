@@ -44,12 +44,10 @@ public class LevelSystem : MonoBehaviour
 
             lvlSound.playLevelUp(); //Plays Sound Effect for Leveling Up
             StartCoroutine(lvlUpTxt.textShowLevelUp()); //Show Text on Screen When Leveling Up
-
-            stats.curXp = 0;
+            float tempXp = stats.curXp;
+            stats.curXp = tempXp - ((stats.level + 100) * stats.level + 13);
             stats.level++;
-            stats.curStrength += 3;
-            stats.curVitality += 2;
-            stats.curDexterity += 2;
+            stats.statPoints += 5;
             stats.curHp = stats.maxHp;
         }
     }

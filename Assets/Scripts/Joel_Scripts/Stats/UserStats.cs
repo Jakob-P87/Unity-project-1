@@ -6,6 +6,8 @@ public class UserStats : MonoBehaviour
     private float vitMultiplier = 4;
     private float strMultiplier = 0.2f;
 
+    public float statPoints;
+
     [Header("-Player-")]
     [Space(10, order = 0)]
 
@@ -140,6 +142,8 @@ public class UserStats : MonoBehaviour
         curDexterity = baseDexterity;
         maxHp = (100) + (curVitality * vitMultiplier);
         curHp = maxHp;
+
+        statPoints = 0;
     }
 	
 	// Update is called once per frame
