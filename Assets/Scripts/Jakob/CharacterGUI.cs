@@ -41,6 +41,11 @@ public class CharacterGUI : MonoBehaviour
     private Text xpAmount;
 
     [SerializeField]
+    private Text statPoints;
+    [SerializeField]
+    private Text statPointAmount;
+
+    [SerializeField]
     private GameObject panel;
 
     bool panelActive = false; 
@@ -84,6 +89,11 @@ public class CharacterGUI : MonoBehaviour
         dmgAmount.text = stats.curAttackPower.ToString();
         playerAttackSpeed.text = "AtkSpd";
         atkSpd.text = stats.curAttackSpeed.ToString();
+
+        statPoints.text = "StatPoints";
+        statPointAmount.text = stats.statPoints.ToString();
+
+
     }
 
     public void Toggle()
