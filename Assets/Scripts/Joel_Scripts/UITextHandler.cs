@@ -12,8 +12,8 @@ public class UITextHandler : MonoBehaviour {
     public GameObject questNDT;
     public Dropdown questBrowser;
 
-  
 
+    [HideInInspector]
     public QuestScript questScript;
 
 

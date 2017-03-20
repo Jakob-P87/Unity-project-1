@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class QuestScript : MonoBehaviour {
 
+    [HideInInspector]
     public UITextHandler textHandling;
 
     public Text t_questName;
@@ -23,7 +24,9 @@ public class QuestScript : MonoBehaviour {
     bool questComplete = false;
 
     //To Keep Track on which quest is which.
+    [HideInInspector]
     public int zombieQuestNum;
+    [HideInInspector]
     public int spiderQuestNum;
 
     public List<Quest> quests = new List<Quest>();
