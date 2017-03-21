@@ -64,14 +64,8 @@ public class Inventory : MonoBehaviour {
             equipment.Add(new Item());
         }
         AddItem("Iron Sword");
-        AddItem("Iron Sword");
-        AddItem("Iron Sword");
-        AddItem("Iron Sword");
-        AddItem("Iron Sword");
-        AddItem("Iron Sword");
-        AddItem("Iron Sword");
-        AddItem("Iron Sword");
-        AddItem("Iron Sword");
+        AddItem("Wooden Sword");
+        AddItem("Chain Mail");
     }
 
     void Update()
@@ -158,7 +152,6 @@ public class Inventory : MonoBehaviour {
             {
                 inventory[i].m_stackSize++;
                 DrawInventory();
-                //DrawEquipment();
                 break;
             }       
             else if(inventory[i].m_name == null && !ItemExist(name))
@@ -170,7 +163,6 @@ public class Inventory : MonoBehaviour {
                         inventory[i] = database.database[j];
                         inventory[i].m_stackSize = 1;
                         DrawInventory();
-                        //DrawEquipment();    
                     }
                 }
                 break;
@@ -192,7 +184,6 @@ public class Inventory : MonoBehaviour {
                 {
                     inventory[i] = new Item();
                 }
-                //DrawEquipment();
                 DrawInventory();
                 return;
             }
@@ -201,29 +192,48 @@ public class Inventory : MonoBehaviour {
     
     public void AddEquipment(string name)
     {
-        for (int i = 0; i < equipment.Count; i++)
+        for (int i = 0; i < inventory.Count; i++)
         {
-            if (i > 4)
+            if (inventory[i].m_name == name)
             {
-                return;
-            }
-            if (equipment[i].m_name == null)
-            {
-                for (int j = 0; j < inventory.Count; j++)
+                Item item = new Item(inventory[i]);
+                item.m_stackSize = 1;
+
+                if (item.m_equipType == EquipmentTypes.WEAPON)
                 {
-                    if (inventory[j].m_name == name)
+                    if (EquipmentExist(EquipmentTypes.WEAPON))
                     {
-                        Item item = new Item(inventory[j]);
-                        item.m_stackSize = 1;
-                        equipment[i] = item;
-                        RemoveItem(name);
-                        DrawEquipment();
-                        stats.UpdateStats();
+                        Item equippedItem = new Item(equipment[0]);
+                        AddItem(equippedItem.m_name);
                     }
+                    equipment[0] = item;
+                    DrawEquipment();
                 }
-                break;
+                else if (item.m_equipType == EquipmentTypes.SHIELD)
+                {
+                    if (EquipmentExist(EquipmentTypes.SHIELD))
+                    {
+                        Item equippedItem = new Item(equipment[1]);
+                        AddItem(equippedItem.m_name);
+                    }
+                    equipment[1] = item;
+                    DrawEquipment();
+                }
+                else if (item.m_equipType == EquipmentTypes.ARMOR)
+                {
+                    if (EquipmentExist(EquipmentTypes.ARMOR))
+                    {
+                        Item equippedItem = new Item(equipment[2]);
+                        AddItem(equippedItem.m_name);
+                    }
+                    equipment[2] = item;
+                    DrawEquipment();
+                }
+                RemoveItem(name);
             }
         }
+        DrawEquipment();
+        stats.UpdateStats();
     }
 
     public void RemoveEquipment(string name, int nr = 1)
@@ -240,7 +250,6 @@ public class Inventory : MonoBehaviour {
                 {
                     equipment[i] = new Item();
                 }
-                //DrawInventory();
                 AddItem(name);
                 DrawEquipment();
                 stats.UpdateStats();
@@ -254,6 +263,18 @@ public class Inventory : MonoBehaviour {
         for (int i = 0; i < inventory.Count; i++)
         {
             if (name == inventory[i].m_name)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool EquipmentExist(EquipmentTypes eType)
+    {
+        for (int i = 0; i < equipment.Count; i++)
+        {
+            if(equipment[i].m_equipType == eType)
             {
                 return true;
             }
