@@ -57,6 +57,7 @@ public class Item {
     public Item(Item itemOther)
     {
         m_type = itemOther.m_type;
+        m_equipType = itemOther.m_equipType;
         m_id = itemOther.m_id;
         m_name = itemOther.m_name;
         m_icon = Resources.Load<Sprite>("ItemIcons/" + itemOther.m_name);

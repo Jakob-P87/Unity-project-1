@@ -64,10 +64,7 @@ public class Inventory : MonoBehaviour {
             equipment.Add(new Item());
         }
         AddItem("Iron Sword");
-        AddItem("Iron Sword");
-        AddItem("Iron Sword");
-        AddItem("Chain Mail");
-        AddItem("Chain Mail");
+        AddItem("Wooden Sword");
         AddItem("Chain Mail");
     }
 
@@ -155,7 +152,6 @@ public class Inventory : MonoBehaviour {
             {
                 inventory[i].m_stackSize++;
                 DrawInventory();
-                //DrawEquipment();
                 break;
             }       
             else if(inventory[i].m_name == null && !ItemExist(name))
@@ -167,7 +163,6 @@ public class Inventory : MonoBehaviour {
                         inventory[i] = database.database[j];
                         inventory[i].m_stackSize = 1;
                         DrawInventory();
-                        //DrawEquipment();    
                     }
                 }
                 break;
@@ -189,7 +184,6 @@ public class Inventory : MonoBehaviour {
                 {
                     inventory[i] = new Item();
                 }
-                //DrawEquipment();
                 DrawInventory();
                 return;
             }
@@ -203,84 +197,43 @@ public class Inventory : MonoBehaviour {
             if (inventory[i].m_name == name)
             {
                 Item item = new Item(inventory[i]);
-                item.m_equipType = inventory[i].m_equipType;
+                item.m_stackSize = 1;
 
                 if (item.m_equipType == EquipmentTypes.WEAPON)
                 {
+                    if (EquipmentExist(EquipmentTypes.WEAPON))
+                    {
+                        Item equippedItem = new Item(equipment[0]);
+                        AddItem(equippedItem.m_name);
+                    }
                     equipment[0] = item;
+                    DrawEquipment();
                 }
                 else if (item.m_equipType == EquipmentTypes.SHIELD)
                 {
+                    if (EquipmentExist(EquipmentTypes.SHIELD))
+                    {
+                        Item equippedItem = new Item(equipment[1]);
+                        AddItem(equippedItem.m_name);
+                    }
                     equipment[1] = item;
+                    DrawEquipment();
                 }
                 else if (item.m_equipType == EquipmentTypes.ARMOR)
                 {
+                    if (EquipmentExist(EquipmentTypes.ARMOR))
+                    {
+                        Item equippedItem = new Item(equipment[2]);
+                        AddItem(equippedItem.m_name);
+                    }
                     equipment[2] = item;
+                    DrawEquipment();
                 }
-                if (!EquipmentExist(name))
-                {
-                    RemoveItem(name);
-                }
-                DrawEquipment();
-                stats.UpdateStats();
+                RemoveItem(name);
             }
         }
-        
-
-        //for (int i = 0; i < equipment.Count; i++)
-        //{
-        //    if (i > 4)
-        //    {
-        //        return;
-        //    }
-        //    if (equipment[i].m_name == null)
-        //    {
-        //        for (int j = 0; j < inventory.Count; j++)
-        //        {
-        //            if (inventory[j].m_name == name)
-        //            {
-        //                Item item = new Item(inventory[j]);
-
-        //                item.m_stackSize = 1;
-        //                equipment[i] = item;
-        //                RemoveItem(name);
-        //                DrawEquipment();
-        //                stats.UpdateStats();
-        //            }
-        //        }
-        //        break;
-        //    }
-        //else if (equipment[i].m_name != null)
-        //{
-        //    for (int j = 0; j < inventory.Count; j++)
-        //    {
-        //        if (inventory[j].m_name == name)
-        //        {
-        //            Item item = new Item(inventory[j]);
-        //            Item equippedItem = new Item(equipment[i]);
-        //            item.m_stackSize = 1;
-
-        //            if (item.m_equipType == EquipmentTypes.WEAPON && i == 0)
-        //            {
-        //                equipment[0] = item;
-        //                inventory[j] = equippedItem;
-        //            }
-        //            else if (item.m_equipType == EquipmentTypes.SHIELD && i == 1)
-        //            {
-        //                equipment[1] = item;
-        //                inventory[j] = equippedItem;
-        //            }
-        //            else if (item.m_equipType == EquipmentTypes.ARMOR && i == 2)
-        //            {
-        //                equipment[2] = item;
-        //                inventory[j] = equippedItem;
-        //            }
-        //            DrawEquipment();
-        //            stats.UpdateStats();
-        //        }
-        //    }
-        //    break;
-        //}
+        DrawEquipment();
+        stats.UpdateStats();
     }
 
     public void RemoveEquipment(string name, int nr = 1)
@@ -317,11 +270,11 @@ public class Inventory : MonoBehaviour {
         return false;
     }
 
-    public bool EquipmentExist(string name)
+    public bool EquipmentExist(EquipmentTypes eType)
     {
         for (int i = 0; i < equipment.Count; i++)
         {
-            if (name == equipment[i].m_name)
+            if(equipment[i].m_equipType == eType)
             {
                 return true;
             }

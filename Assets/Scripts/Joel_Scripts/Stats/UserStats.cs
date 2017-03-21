@@ -149,6 +149,8 @@ public class UserStats : MonoBehaviour
         curHp = maxHp;
 
         statPoints = 0;
+
+        UpdateStats();
     }
 	
 	// Update is called once per frame
