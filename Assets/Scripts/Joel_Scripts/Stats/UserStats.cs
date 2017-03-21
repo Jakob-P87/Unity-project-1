@@ -149,10 +149,6 @@ public class UserStats : MonoBehaviour
         curHp = maxHp;
 
         statPoints = 0;
-<<<<<<< HEAD
-
-=======
->>>>>>> 6814135153cfcf7ae52cc908eb021129cc31cfd9
         UpdateStats();
     }
 	

@@ -25,8 +25,12 @@ public class RightHand : MonoBehaviour {
             StartCoroutine(RemoveWeapon());
         }
 
-        go.transform.position = transform.position;
-        go.transform.rotation = transform.rotation;
+        if (equipped)
+        {
+            go.transform.position = transform.position;
+            go.transform.rotation = transform.rotation;
+        }
+
     }
 
     IEnumerator AddWeapon()
