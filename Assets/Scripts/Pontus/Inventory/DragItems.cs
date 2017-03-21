@@ -16,6 +16,7 @@ public class DragItems : MonoBehaviour {
     GameObject player;
     GameObject goRef;
     ItemDatabase database;
+    EquipmentTypes equipType;
 
     void Start()
     {
@@ -143,7 +144,7 @@ public class DragItems : MonoBehaviour {
     public void EquipItem(int id)
     {
         Item item = inv.inventory[id];
-
+        
         if (item.m_name != null && item.m_type == itemType.Equipment)
         {
             equipedItem = new Item(item);

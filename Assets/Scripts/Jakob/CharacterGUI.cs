@@ -66,7 +66,7 @@ public class CharacterGUI : MonoBehaviour
         {
             panelActive = !panelActive;
             panel.SetActive(panelActive);
-            
+            stats.UpdateStats();
         }
     }
 

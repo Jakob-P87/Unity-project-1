@@ -66,12 +66,9 @@ public class Inventory : MonoBehaviour {
         AddItem("Iron Sword");
         AddItem("Iron Sword");
         AddItem("Iron Sword");
-        AddItem("Iron Sword");
-        AddItem("Iron Sword");
-        AddItem("Iron Sword");
-        AddItem("Iron Sword");
-        AddItem("Iron Sword");
-        AddItem("Iron Sword");
+        AddItem("Chain Mail");
+        AddItem("Chain Mail");
+        AddItem("Chain Mail");
     }
 
     void Update()
@@ -201,29 +198,89 @@ public class Inventory : MonoBehaviour {
     
     public void AddEquipment(string name)
     {
-        for (int i = 0; i < equipment.Count; i++)
+        for (int i = 0; i < inventory.Count; i++)
         {
-            if (i > 4)
+            if (inventory[i].m_name == name)
             {
-                return;
-            }
-            if (equipment[i].m_name == null)
-            {
-                for (int j = 0; j < inventory.Count; j++)
+                Item item = new Item(inventory[i]);
+                item.m_equipType = inventory[i].m_equipType;
+
+                if (item.m_equipType == EquipmentTypes.WEAPON)
                 {
-                    if (inventory[j].m_name == name)
-                    {
-                        Item item = new Item(inventory[j]);
-                        item.m_stackSize = 1;
-                        equipment[i] = item;
-                        RemoveItem(name);
-                        DrawEquipment();
-                        stats.UpdateStats();
-                    }
+                    equipment[0] = item;
                 }
-                break;
+                else if (item.m_equipType == EquipmentTypes.SHIELD)
+                {
+                    equipment[1] = item;
+                }
+                else if (item.m_equipType == EquipmentTypes.ARMOR)
+                {
+                    equipment[2] = item;
+                }
+                if (!EquipmentExist(name))
+                {
+                    RemoveItem(name);
+                }
+                DrawEquipment();
+                stats.UpdateStats();
             }
         }
+        
+
+        //for (int i = 0; i < equipment.Count; i++)
+        //{
+        //    if (i > 4)
+        //    {
+        //        return;
+        //    }
+        //    if (equipment[i].m_name == null)
+        //    {
+        //        for (int j = 0; j < inventory.Count; j++)
+        //        {
+        //            if (inventory[j].m_name == name)
+        //            {
+        //                Item item = new Item(inventory[j]);
+
+        //                item.m_stackSize = 1;
+        //                equipment[i] = item;
+        //                RemoveItem(name);
+        //                DrawEquipment();
+        //                stats.UpdateStats();
+        //            }
+        //        }
+        //        break;
+        //    }
+        //else if (equipment[i].m_name != null)
+        //{
+        //    for (int j = 0; j < inventory.Count; j++)
+        //    {
+        //        if (inventory[j].m_name == name)
+        //        {
+        //            Item item = new Item(inventory[j]);
+        //            Item equippedItem = new Item(equipment[i]);
+        //            item.m_stackSize = 1;
+
+        //            if (item.m_equipType == EquipmentTypes.WEAPON && i == 0)
+        //            {
+        //                equipment[0] = item;
+        //                inventory[j] = equippedItem;
+        //            }
+        //            else if (item.m_equipType == EquipmentTypes.SHIELD && i == 1)
+        //            {
+        //                equipment[1] = item;
+        //                inventory[j] = equippedItem;
+        //            }
+        //            else if (item.m_equipType == EquipmentTypes.ARMOR && i == 2)
+        //            {
+        //                equipment[2] = item;
+        //                inventory[j] = equippedItem;
+        //            }
+        //            DrawEquipment();
+        //            stats.UpdateStats();
+        //        }
+        //    }
+        //    break;
+        //}
     }
 
     public void RemoveEquipment(string name, int nr = 1)
@@ -240,7 +297,6 @@ public class Inventory : MonoBehaviour {
                 {
                     equipment[i] = new Item();
                 }
-                //DrawInventory();
                 AddItem(name);
                 DrawEquipment();
                 stats.UpdateStats();
@@ -254,6 +310,18 @@ public class Inventory : MonoBehaviour {
         for (int i = 0; i < inventory.Count; i++)
         {
             if (name == inventory[i].m_name)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool EquipmentExist(string name)
+    {
+        for (int i = 0; i < equipment.Count; i++)
+        {
+            if (name == equipment[i].m_name)
             {
                 return true;
             }

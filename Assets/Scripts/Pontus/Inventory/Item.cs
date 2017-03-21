@@ -7,6 +7,7 @@ using UnityEngine;
 public class Item {
 
     public itemType m_type;
+    public EquipmentTypes m_equipType;
     public int m_id;
     public string m_name;
     public string m_desc;
@@ -27,9 +28,10 @@ public class Item {
     }
 
     //Equipment
-    public Item(int id, string name, int dmg, string desc, Recipe recp, int stackSize = 1)
+    public Item(int id, string name, int dmg, string desc, Recipe recp, EquipmentTypes equipType, int stackSize = 1)
     {
         m_type = itemType.Equipment;
+        m_equipType = equipType;
         m_id = id;
         m_icon = Resources.Load<Sprite>("ItemIcons/" + name);
         m_name = name;
