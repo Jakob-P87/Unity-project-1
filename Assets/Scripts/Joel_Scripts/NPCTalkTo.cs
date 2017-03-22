@@ -4,6 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class NPCTalkTo : MonoBehaviour {
+    public enum CharacterState
+    {
+        GREETINGS,
+        AWAIT,
+        TURNIN,
+        DONE,
+    }
 
     public GameObject dialougeScreen;
     public Text npcName;
@@ -12,6 +19,7 @@ public class NPCTalkTo : MonoBehaviour {
     public UserStats level;
 
     public CharacterType NPC;
+    public CharacterState state = CharacterState.GREETINGS;
 
     bool talking = false;
     string temp;
@@ -34,7 +42,7 @@ public class NPCTalkTo : MonoBehaviour {
     {
         dialougeScreen.gameObject.SetActive(true);
         npcName.text = gameObject.name;
-        dialougeText.text = "Hello, my name is " + gameObject.name + ". who are you?";
+        //dialougeText.text = "Hello, my name is " + gameObject.name + ". who are you?";
         talking = true;
 
         switch(NPC)
@@ -46,10 +54,11 @@ public class NPCTalkTo : MonoBehaviour {
                 break;
             case CharacterType.RANGER:
                 StartCoroutine(talkingToRanger());
-                questScript.SpiderQuest2(); // Start a Spider Quest
+                questScript.ZombieQuest(); // Start a Spider Quest
                 break;
             case CharacterType.WIZARD:
                 StartCoroutine(talkingToWizard());
+                questScript.SpiderQuest2(); // Start a Spider Quest
                 break;
 
             default:
@@ -78,48 +87,191 @@ public class NPCTalkTo : MonoBehaviour {
     }
     IEnumerator talkingToRanger()
     {
-        yield return new WaitForSeconds(0.4f);
-        yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
-        dialougeText.text = "Paladin huh?";
-        yield return new WaitForSeconds(0.4f);
-        yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
-        dialougeText.text = "I enjoy seeing new faces around here.";
-        yield return new WaitForSeconds(0.4f);
-        yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
-        dialougeText.text = "Now that we know each other, how about you kill some giant spiders?";
-        yield return new WaitForSeconds(0.4f);
-        yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
-        dialougeText.text = "Ok. Nice. Good. Go squish them giant legged hair-balls for me. kthxbye.";
-        yield return new WaitForSeconds(0.4f);
-        yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
-        yield return new WaitForSeconds(0.1f);
-        dialougeScreen.gameObject.SetActive(false);
-        talking = false;
+
+        if (state == CharacterState.AWAIT && GetQuestByGiver(CharacterType.RANGER).PendingTurnIn())
+        {
+            state = CharacterState.TURNIN;
+        }
+
+        switch (state)
+        {
+            case CharacterState.GREETINGS:
+                dialougeText.text = "Greetings Stranger!";
+                yield return new WaitForSeconds(0.4f);
+                yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+                dialougeText.text = "You arrived at a good time!";
+                yield return new WaitForSeconds(0.4f);
+                yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+                dialougeText.text = "The cemetary has been infested with the living dead!";
+                yield return new WaitForSeconds(0.4f);
+                yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+                dialougeText.text = "Would you be interested in clearing the cemetary for me?";
+                yield return new WaitForSeconds(0.4f);
+                yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+                yield return new WaitForSeconds(0.1f);
+                dialougeScreen.gameObject.SetActive(false);
+                talking = false;
+                state = CharacterState.AWAIT;
+                break;
+
+            case CharacterState.AWAIT:
+                dialougeText.text = "Greetings Paladin!";
+                yield return new WaitForSeconds(0.4f);
+                yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+                dialougeText.text = "Have you cleared the cemetary yet?";
+                //yield return new WaitForSeconds(0.4f);
+                //yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+                //dialougeText.text = "The cemetary has been infested with the living dead";
+                //yield return new WaitForSeconds(0.4f);
+                //yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+                //dialougeText.text = "Would you be interested in clearing the cemetary for me?";
+                yield return new WaitForSeconds(0.4f);
+                yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+                yield return new WaitForSeconds(0.1f);
+                dialougeScreen.gameObject.SetActive(false);
+                talking = false;
+                break;
+
+            case CharacterState.TURNIN:
+                dialougeText.text = "Greetings Paladin!";
+                yield return new WaitForSeconds(0.4f);
+                yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+                dialougeText.text = "So you cleared the cemetary, Well done!";
+                yield return new WaitForSeconds(0.4f);
+                yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+                dialougeText.text = "Now they can rest in peace!";
+                yield return new WaitForSeconds(0.4f);
+                yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+                dialougeText.text = "Good luck in the future!";
+                yield return new WaitForSeconds(0.4f);
+                yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+                yield return new WaitForSeconds(0.1f);
+                dialougeScreen.gameObject.SetActive(false);
+                CompleteAllUnDeliveredQuests();
+                talking = false;
+                state = CharacterState.DONE;
+                break;
+
+            case CharacterState.DONE:
+                dialougeText.text = "Greetings paladin!";
+                yield return new WaitForSeconds(0.4f);
+                yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+                dialougeText.text = "I have no work for you.";
+                //CompleteAllUnDeliveredQuests();
+                //yield return new WaitForSeconds(0.4f);
+                //yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+                //dialougeText.text = "Come back when you are done.";
+                yield return new WaitForSeconds(0.4f);
+                yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+                yield return new WaitForSeconds(0.1f);
+                dialougeScreen.gameObject.SetActive(false);
+                talking = false;
+
+                break;
+        }
+
     }
+
     IEnumerator talkingToWizard()
     {
-        yield return new WaitForSeconds(0.4f);
-        yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
-        dialougeText.text = "Paladin yes?";
-        yield return new WaitForSeconds(0.4f);
-        yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
-        dialougeText.text = "Completed quests now rewarded";
-        CompleteAllUnDeliveredQuests();
-        yield return new WaitForSeconds(0.4f);
-        yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
-        dialougeText.text = "I'm sure our ways will cross again.";
-        yield return new WaitForSeconds(0.4f);
-        yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
-        yield return new WaitForSeconds(0.1f);
-        dialougeScreen.gameObject.SetActive(false);
-        talking = false;
+        if (state == CharacterState.AWAIT && GetQuestByGiver(CharacterType.WIZARD).PendingTurnIn())
+        {
+            state = CharacterState.TURNIN;
+        }
+
+        switch(state)
+        {
+            case CharacterState.GREETINGS:
+                //yield return new WaitForSeconds(0.4f);
+                //yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+                dialougeText.text = "Greetings stranger!";
+                yield return new WaitForSeconds(0.4f);
+                yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+                dialougeText.text = "How about killing some spiders for me?";
+                //CompleteAllUnDeliveredQuests();
+                yield return new WaitForSeconds(0.4f);
+                yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+                dialougeText.text = "Come back when you are done.";
+                yield return new WaitForSeconds(0.4f);
+                yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+                yield return new WaitForSeconds(0.1f);
+                dialougeScreen.gameObject.SetActive(false);
+                talking = false;
+                state = CharacterState.AWAIT;
+                break;
+
+            case CharacterState.AWAIT:
+                dialougeText.text = "Greetings paladin!";
+                yield return new WaitForSeconds(0.4f);
+                yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+                dialougeText.text = "Are you done with your task yet?";
+                //CompleteAllUnDeliveredQuests();
+                //yield return new WaitForSeconds(0.4f);
+                //yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+                //dialougeText.text = "Come back when you are done.";
+                yield return new WaitForSeconds(0.4f);
+                yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+                yield return new WaitForSeconds(0.1f);
+                dialougeScreen.gameObject.SetActive(false);
+                talking = false;
+
+                break;
+
+            case CharacterState.TURNIN:
+                dialougeText.text = "Greetings paladin!";
+                yield return new WaitForSeconds(0.4f);
+                yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+                dialougeText.text = "So you succeded in killing the spiders, Well done!";
+                yield return new WaitForSeconds(0.4f);
+                yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+                dialougeText.text = "Good luck with your journey!";
+                yield return new WaitForSeconds(0.4f);
+                yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+                yield return new WaitForSeconds(0.1f);
+                dialougeScreen.gameObject.SetActive(false);
+                CompleteAllUnDeliveredQuests();
+                talking = false;
+                state = CharacterState.DONE;
+                break;
+
+            case CharacterState.DONE:
+                dialougeText.text = "Greetings paladin!";
+                yield return new WaitForSeconds(0.4f);
+                yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+                dialougeText.text = "I have no work for you.";
+                //CompleteAllUnDeliveredQuests();
+                //yield return new WaitForSeconds(0.4f);
+                //yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+                //dialougeText.text = "Come back when you are done.";
+                yield return new WaitForSeconds(0.4f);
+                yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+                yield return new WaitForSeconds(0.1f);
+                dialougeScreen.gameObject.SetActive(false);
+                talking = false;
+
+                break;
+
+        }
+        
+    }
+
+    Quest GetQuestByGiver(CharacterType type)
+    {
+        foreach (Quest q in questScript.quests)
+        {
+            if (q.m_questGiver == type)
+                return q;
+        }
+
+        return null;
     }
 
     void CompleteAllUnDeliveredQuests()
     {
         for (int i = 0; i < questScript.quests.Count; i++)
         {
-            if (questScript.quests[i].m_completed && questScript.quests[i].m_questDelivered == false)
+            //if (questScript.quests[i].m_completed && questScript.quests[i].m_questDelivered == false)
+            if (questScript.quests[i].PendingTurnIn())
             {
                 level.curXp += questScript.quests[i].m_questReward; //Give curXp questReward amount (for every completed quest)
                 questScript.completedQuestsList.Add(questScript.quests[i].m_questName);
@@ -138,8 +290,8 @@ public class NPCTalkTo : MonoBehaviour {
         }
         for (int i = 0; i < questScript.quests.Count; i++)
         {
-            
-            questScript.quests.RemoveAt(i);
+            if(questScript.quests[i].m_completed)
+                questScript.quests.RemoveAt(i);
         }
         questScript.textHandling.questBrowser.AddOptions(questScript.questListName);
         //for (int i = 0; i < questScript.quests.Count; i++)

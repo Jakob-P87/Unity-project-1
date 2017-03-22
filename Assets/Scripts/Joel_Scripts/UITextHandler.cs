@@ -23,9 +23,10 @@ public class UITextHandler : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-
+        questLog.SetActive(false);
         lvlUpTxt.SetActive(showText);
         questScript = GetComponent<QuestScript>();
+
     }
 
     void Update()

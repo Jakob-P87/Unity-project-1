@@ -75,10 +75,10 @@ public class QuestScript : MonoBehaviour {
         if (!completedQuestsList.Contains(qName) && !questListName.Contains(qName))
         {
 
-            string qDesc = "This quest will involve Zombie killing. Have fun and good luck... and BrAAAAAAAiinnss!!";
+            string qDesc = "Help the ranger clear the cemetary from zombies!";
             string qTask = "Zombies Slain: ";
             int task1 = 0;           //e.g. Amount killed
-            int taskMax1 = 3;       //e.g. Amount to be killed
+            int taskMax1 = 2;       //e.g. Amount to be killed
             int qReward = 500;
             bool questComplete = false;
 
@@ -94,7 +94,8 @@ public class QuestScript : MonoBehaviour {
 
             mobType = CharacterType.ZOMBIE;
 
-            quests.Add(new Quest(questName, questDescription, questTask, task1, taskMax1, questComplete, questReward, quest_ID, mobType));
+
+            quests.Add(new Quest(questName, questDescription, questTask, task1, taskMax1, questComplete, questReward, quest_ID, mobType, CharacterType.RANGER));
             //zombieQuestNum = quests.Count-1;
             textHandling.questBrowser.ClearOptions();
             textHandling.questBrowser.AddOptions(questListName);
@@ -107,11 +108,11 @@ public class QuestScript : MonoBehaviour {
         if (!completedQuestsList.Contains(qName) && !questListName.Contains(qName))
         {
             
-            string qDesc = "This quest will involve spider killing. Have fun and good luck!";
+            string qDesc = "Go kill some spiders and come back to when you are done!";
             string qTask = "Spiders Slain: ";
             int task1 = 0;           //e.g. Amount killed
             int taskMax1 = 2;       //e.g. Amount to be killed
-            int qReward = 500;
+            int qReward = 150;
             bool questComplete = false;
 
             questName = qName;
@@ -125,7 +126,7 @@ public class QuestScript : MonoBehaviour {
             quest_ID = quests.Count;
             mobType = CharacterType.SPIDER;
 
-            quests.Add(new Quest(questName, questDescription, questTask, task1, taskMax1, questComplete, questReward, quest_ID, mobType));
+            quests.Add(new Quest(questName, questDescription, questTask, task1, taskMax1, questComplete, questReward, quest_ID, mobType, CharacterType.WIZARD));
 
             //spiderQuestNum = quests.Count-1;
             textHandling.questBrowser.ClearOptions();

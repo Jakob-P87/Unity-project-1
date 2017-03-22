@@ -29,10 +29,18 @@ public class Quest {
     public int m_quest_ID;
 
     public CharacterType m_mobType;
+    public CharacterType m_questGiver;
+
+    public bool PendingTurnIn()
+    {
+        if (m_completed && !m_questDelivered)
+            return true;
+        return false;
+    }
 
     //Standard Kill/Gather 1 type of object
     //string questName, string questDesc, string questTask, int task1, int taskMax1, bool completed, int questReward
-    public Quest(string questName, string questDesc, string questTask, int task1, int taskMax1, bool completed, int questReward, int quest_ID, CharacterType mobType)
+    public Quest(string questName, string questDesc, string questTask, int task1, int taskMax1, bool completed, int questReward, int quest_ID, CharacterType mobType, CharacterType questGiver)
     {
 
         m_questName = questName;
@@ -49,6 +57,7 @@ public class Quest {
         m_quest_ID = quest_ID;
 
         m_mobType = mobType;
+        m_questGiver = questGiver;
     }
 
     public Quest()

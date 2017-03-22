@@ -26,7 +26,7 @@ public class LevelSystem : MonoBehaviour
         stats = GameObject.FindGameObjectWithTag("Player").GetComponent<UserStats>();
         sn = particleEffectLevel.GetComponent<StartParticleTest>();                         //Set sn to a gameobjects script<StartParticleTest>
         lvlSound = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioClipsYo>(); //Set lvlSound to playerGameObjects script<
-        lvlUpTxt = GameObject.FindGameObjectWithTag("eUI").GetComponent<UITextHandler>();
+        lvlUpTxt = GameObject.FindObjectOfType<UITextHandler>() as UITextHandler;
 
     }
 	
