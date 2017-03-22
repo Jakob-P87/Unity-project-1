@@ -22,13 +22,8 @@ public class ItemDatabase : MonoBehaviour {
 
         //Equipment
         database.Add(new Item(4, "Wooden Sword", 2, "Baby's first sword", new Recipe("Wooden Log", "Leather"), EquipmentTypes.WEAPON));
-<<<<<<< HEAD
-        database.Add(new Item(5, "Iron Sword", 5, "A simple iron sword", new Recipe("Iron", "Stick"), EquipmentTypes.WEAPON));
         database.Add(new Item(6, "Chain Mail", 10, "A chain mail", new Recipe(null, null), EquipmentTypes.ARMOR));
-=======
         database.Add(new Item(5, "Iron Sword", 5, "A simple iron sword", new Recipe("Iron Bar", "Leather"), EquipmentTypes.WEAPON));
-        database.Add(new Item(6, "Chain Mail", 3, "A chain mail", new Recipe(null, null), EquipmentTypes.ARMOR));
->>>>>>> 382b4edb08a4464564581ef2e1a28fba2fbc7c02
 
         //Consumable
         database.Add(new Item(7, "Health Potion", "A potion to restore health", new Recipe("Red Mushroom", "Water Bottle")));
