@@ -8,6 +8,8 @@ public class QuestScript : MonoBehaviour {
     [HideInInspector]
     public UITextHandler textHandling;
 
+
+
     public Text t_questName;
     public Text t_questDescription;
     public Text t_questTask;  //Text to be changed (showing the quest task)
@@ -23,14 +25,18 @@ public class QuestScript : MonoBehaviour {
 
     bool questComplete = false;
 
-    //To Keep Track on which quest is which.
-    [HideInInspector]
-    public int zombieQuestNum;
-    [HideInInspector]
-    public int spiderQuestNum;
+    int quest_ID;
+
+    CharacterType mobType;
+
+    ////To Keep Track on which quest is which.
+    //[HideInInspector]
+   // public int zombieQuestNum;
+    //[HideInInspector]
+    //public int spiderQuestNum;
 
     public List<Quest> quests = new List<Quest>();
-    List<string> questListName = new List<string>();
+    public List<string> questListName = new List<string>();
 
     void Start()
     {
@@ -39,11 +45,6 @@ public class QuestScript : MonoBehaviour {
         t_questName.gameObject.SetActive(true);
         t_questDescription.gameObject.SetActive(true);
         t_questTask.gameObject.SetActive(true);
-
-        SpiderQuest2(); //Quest Start
-        
-        ZombieQuest(); //Quest Start
-        
     }
 
     void Update()
@@ -69,52 +70,65 @@ public class QuestScript : MonoBehaviour {
     public void ZombieQuest()
     {
         string qName = "Zombie Quest";
-        string qDesc = "This quest will involve Zombie killing. Have fun and good luck... and BrAAAAAAAiinnss!!";
-        string qTask = "Zombies Slain: ";
-        int task1 = 0;           //e.g. Amount killed
-        int taskMax1 = 3;       //e.g. Amount to be killed
-        int qReward = 500;
-        bool questComplete = false;
+        if (!questListName.Contains(qName))
+        {
 
-        questName = qName;
-        questDescription = qDesc;
-        questTask = qTask;
+            string qDesc = "This quest will involve Zombie killing. Have fun and good luck... and BrAAAAAAAiinnss!!";
+            string qTask = "Zombies Slain: ";
+            int task1 = 0;           //e.g. Amount killed
+            int taskMax1 = 3;       //e.g. Amount to be killed
+            int qReward = 500;
+            bool questComplete = false;
 
-        questReward = qReward;
+            questName = qName;
+            questDescription = qDesc;
+            questTask = qTask;
 
-        questListName.Clear();
-        questListName.Add(qName);
-        
+            questReward = qReward;
 
-        quests.Add(new Quest(questName, questDescription, questTask, task1, taskMax1, questComplete, questReward));
-        zombieQuestNum = quests.Count-1;
-        textHandling.questBrowser.AddOptions(questListName);
+            questListName.Clear();
+            questListName.Add(qName);
+
+            quest_ID = quests.Count;
+
+            mobType = CharacterType.ZOMBIE;
+
+            quests.Add(new Quest(questName, questDescription, questTask, task1, taskMax1, questComplete, questReward, quest_ID, mobType));
+            //zombieQuestNum = quests.Count-1;
+            textHandling.questBrowser.AddOptions(questListName);
+        }
     }
 
     public void SpiderQuest2()
     {
+        string qName = "Spider Quest";
+        if (!questListName.Contains(qName))
+        {
+            
+            string qDesc = "This quest will involve spider killing. Have fun and good luck!";
+            string qTask = "Spiders Slain: ";
+            int task1 = 0;           //e.g. Amount killed
+            int taskMax1 = 2;       //e.g. Amount to be killed
+            int qReward = 500;
+            bool questComplete = false;
 
-        string qName = "SpiderQuestTwo";
-        string qDesc = "This quest will involve spider killing. Have fun and good luck!";
-        string qTask = "Spiders Slain: ";
-        int task1 = 0;           //e.g. Amount killed
-        int taskMax1 = 2;       //e.g. Amount to be killed
-        int qReward = 500;
-        bool questComplete = false;
+            questName = qName;
+            questDescription = qDesc;
+            questTask = qTask;
 
-        questName = qName;
-        questDescription = qDesc;
-        questTask = qTask;
+            questReward = qReward;
 
-        questReward = qReward;
+            questListName.Clear();
+            questListName.Add(qName);
 
-        questListName.Clear();
-        questListName.Add(qName);
+            quest_ID = quests.Count;
+            mobType = CharacterType.SPIDER;
 
-        quests.Add(new Quest(questName, questDescription, questTask, task1, taskMax1, questComplete, questReward));
-        spiderQuestNum = quests.Count-1;
-        textHandling.questBrowser.AddOptions(questListName);
-        
+            quests.Add(new Quest(questName, questDescription, questTask, task1, taskMax1, questComplete, questReward, quest_ID, mobType));
+
+            //spiderQuestNum = quests.Count-1;
+            textHandling.questBrowser.AddOptions(questListName);
+        }
 
     }
 
