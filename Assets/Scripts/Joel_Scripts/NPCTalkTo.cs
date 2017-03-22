@@ -122,9 +122,33 @@ public class NPCTalkTo : MonoBehaviour {
             if (questScript.quests[i].m_completed && questScript.quests[i].m_questDelivered == false)
             {
                 level.curXp += questScript.quests[i].m_questReward; //Give curXp questReward amount (for every completed quest)
+                questScript.completedQuestsList.Add(questScript.quests[i].m_questName);
                 questScript.quests[i].m_questDelivered = true;
-                //Make something here which wont give XP by talking again? Perhaps set m_completed = false? No cuz it will be set to true again...
+               
             }
         }
+        questScript.textHandling.questBrowser.ClearOptions();
+        questScript.questListName.Clear();
+        for (int i = 0; i < questScript.quests.Count; i++)
+        {
+            if (!questScript.quests[i].m_completed)
+            {
+                questScript.questListName.Add(questScript.quests[i].m_questName);
+            }
+        }
+        for (int i = 0; i < questScript.quests.Count; i++)
+        {
+            
+            questScript.quests.RemoveAt(i);
+        }
+        questScript.textHandling.questBrowser.AddOptions(questScript.questListName);
+        //for (int i = 0; i < questScript.quests.Count; i++)
+        //{
+        //    if(!questScript.quests[i].m_completed)
+        //    {
+        //        questScript.questListName.Add(questScript.quests[i].m_questName);
+        //    }
+        //}
+        //questScript.textHandling.questBrowser.AddOptions(questScript.questListName);
     }
 }

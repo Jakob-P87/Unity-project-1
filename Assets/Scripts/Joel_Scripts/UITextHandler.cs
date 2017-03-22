@@ -30,28 +30,40 @@ public class UITextHandler : MonoBehaviour {
 
     void Update()
     {
+        
 
         if(Input.GetKeyDown(KeyCode.T))
         {
             ToggleQuestLog();
         }
-        
-        //Everything regarding quest texts changes when choosing corresponding option in the questBrowser(dropdown)
-        questScript.t_questName.text = questScript.quests[questBrowser.value].m_questName;
-        questScript.t_questDescription.text = questScript.quests[questBrowser.value].m_questDesc;
-        questScript.t_questTask.text = questScript.quests[questBrowser.value].m_questTask + questScript.quests[questBrowser.value].m_task1 + "/" + questScript.quests[questBrowser.value].m_taskMax1;
 
-        if(questScript.quests[questBrowser.value].m_completed)
+        if(questBrowser.value == 0)
         {
-            questScript.t_questName.color = Color.gray;
-            questScript.t_questDescription.color = Color.gray;
-            questScript.t_questTask.color = Color.gray;
+            questScript.t_questName.text = "";
+            questScript.t_questDescription.text = "";
+            questScript.t_questTask.text = "";
         }
-        else
+
+        //Everything regarding quest texts changes when choosing corresponding option in the questBrowser(dropdown)
+        if (questScript.quests.Count > 0) //if any quests has been created. if no quests are created, dont!
         {
-            questScript.t_questName.color = Color.black;
-            questScript.t_questDescription.color = Color.black;
-            questScript.t_questTask.color = Color.black;
+            questScript.t_questName.text = questScript.quests[questBrowser.value].m_questName;
+            questScript.t_questDescription.text = questScript.quests[questBrowser.value].m_questDesc;
+            questScript.t_questTask.text = questScript.quests[questBrowser.value].m_questTask + questScript.quests[questBrowser.value].m_task1 + "/" + questScript.quests[questBrowser.value].m_taskMax1;
+
+
+            if (questScript.quests[questBrowser.value].m_completed)
+            {
+                questScript.t_questName.color = Color.gray;
+                questScript.t_questDescription.color = Color.gray;
+                questScript.t_questTask.color = Color.gray;
+            }
+            else
+            {
+                questScript.t_questName.color = Color.black;
+                questScript.t_questDescription.color = Color.black;
+                questScript.t_questTask.color = Color.black;
+            }
         }
         
     }

@@ -8,8 +8,6 @@ public class QuestScript : MonoBehaviour {
     [HideInInspector]
     public UITextHandler textHandling;
 
-
-
     public Text t_questName;
     public Text t_questDescription;
     public Text t_questTask;  //Text to be changed (showing the quest task)
@@ -37,9 +35,11 @@ public class QuestScript : MonoBehaviour {
 
     public List<Quest> quests = new List<Quest>();
     public List<string> questListName = new List<string>();
+    public List<string> completedQuestsList = new List<string>();
 
     void Start()
     {
+        
         textHandling = GetComponent<UITextHandler>();
 
         t_questName.gameObject.SetActive(true);
@@ -58,8 +58,10 @@ public class QuestScript : MonoBehaviour {
         {
             if (quests[i].m_task1 >= quests[i].m_taskMax1)
             quests[i].m_completed = true;
-        }
 
+            if (quests[i].m_task1 >= quests[i].m_taskMax1)
+                quests[i].m_task1 = quests[i].m_taskMax1; //Make sure a task never goes over taskMax (0/2 -> 1/2 -> 2/2 -X 3/2 -> 2/2)
+        }
 
     }
 
@@ -70,7 +72,7 @@ public class QuestScript : MonoBehaviour {
     public void ZombieQuest()
     {
         string qName = "Zombie Quest";
-        if (!questListName.Contains(qName))
+        if (!completedQuestsList.Contains(qName) && !questListName.Contains(qName))
         {
 
             string qDesc = "This quest will involve Zombie killing. Have fun and good luck... and BrAAAAAAAiinnss!!";
@@ -86,7 +88,6 @@ public class QuestScript : MonoBehaviour {
 
             questReward = qReward;
 
-            questListName.Clear();
             questListName.Add(qName);
 
             quest_ID = quests.Count;
@@ -95,6 +96,7 @@ public class QuestScript : MonoBehaviour {
 
             quests.Add(new Quest(questName, questDescription, questTask, task1, taskMax1, questComplete, questReward, quest_ID, mobType));
             //zombieQuestNum = quests.Count-1;
+            textHandling.questBrowser.ClearOptions();
             textHandling.questBrowser.AddOptions(questListName);
         }
     }
@@ -102,7 +104,7 @@ public class QuestScript : MonoBehaviour {
     public void SpiderQuest2()
     {
         string qName = "Spider Quest";
-        if (!questListName.Contains(qName))
+        if (!completedQuestsList.Contains(qName) && !questListName.Contains(qName))
         {
             
             string qDesc = "This quest will involve spider killing. Have fun and good luck!";
@@ -118,7 +120,6 @@ public class QuestScript : MonoBehaviour {
 
             questReward = qReward;
 
-            questListName.Clear();
             questListName.Add(qName);
 
             quest_ID = quests.Count;
@@ -127,6 +128,7 @@ public class QuestScript : MonoBehaviour {
             quests.Add(new Quest(questName, questDescription, questTask, task1, taskMax1, questComplete, questReward, quest_ID, mobType));
 
             //spiderQuestNum = quests.Count-1;
+            textHandling.questBrowser.ClearOptions();
             textHandling.questBrowser.AddOptions(questListName);
         }
 

@@ -50,47 +50,49 @@ public class ItemDrop : MonoBehaviour
     }
     IEnumerator DestroyObj()
     {
-        //Quest Related
+            //Quest Related
 
-    /*
-    Instead of:
+        /*
+        Instead of:
 
-    if(characterType.CharacterType == CharacterType.SPIDER)
-        questTask.quests[questTask.spiderQuestNum].m_task1++;
-    if (characterType.CharacterType == CharacterType.ZOMBIE)
-        questTask.quests[questTask.zombieQuestNum].m_task1++;
-    */
+        if(characterType.CharacterType == CharacterType.SPIDER)
+            questTask.quests[questTask.spiderQuestNum].m_task1++;
+        if (characterType.CharacterType == CharacterType.ZOMBIE)
+            questTask.quests[questTask.zombieQuestNum].m_task1++;
+        */
 
-    //Use this:   
-    for (int i = 0; i < questTask.quests.Count; i++) //Checks all current quests
-    {
-        if(questTask.quests[i].m_mobType == characterType.CharacterType) //if a quest tasked to kill mob A == mob A
+        //Use this:   
+        for (int i = 0; i < questTask.quests.Count; i++) //Checks all current quests
         {
-            questTask.quests[i].m_task1++; //mob A.Killed++;
+            if(questTask.quests[i].m_mobType == characterType.CharacterType) //if a quest tasked to kill mob A == mob A
+            {
+                questTask.quests[i].m_task1++; //mob A.Killed++;
+            }
         }
+
+
+
+        questTask.QuestUpdate();
+        //~Quest Related
+
+
+
+        DropItem();
+        yield return new WaitForSeconds(2);
+
+        Destroy(UI.hp.gameObject);
+        Destroy(gameObject);
+        yield break;
     }
 
+    void DropItem()
+    {
+        if (Random.value <= 1) //%30 percent chance to happen (1 = 100%)
+        {
+            goRef = Instantiate(drop, gameObject.transform.position, gameObject.transform.rotation); //creates object on a position (choose in the editor!)
+            goRef.name = drop.name;
+        }
 
-
-questTask.QuestUpdate();
-//~Quest Related
-
-
-
-DropItem();
-yield return new WaitForSeconds(2);
-
-Destroy(UI.hp.gameObject);
-Destroy(gameObject);
-yield break;
-}
-void DropItem()
-{
-if (Random.value <= 1) //%30 percent chance to happen (1 = 100%)
-{
-    goRef = Instantiate(drop, gameObject.transform.position, gameObject.transform.rotation); //creates object on a position (choose in the editor!)
-    goRef.name = drop.name;
-}
-}
+    }
 }
  
