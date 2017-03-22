@@ -24,9 +24,15 @@ public class Quest {
     [SerializeField]
     public bool m_completed;
 
+    public bool m_questDelivered = false;
+
+    public int m_quest_ID;
+
+    public CharacterType m_mobType;
+
     //Standard Kill/Gather 1 type of object
     //string questName, string questDesc, string questTask, int task1, int taskMax1, bool completed, int questReward
-    public Quest(string questName, string questDesc, string questTask, int task1, int taskMax1, bool completed, int questReward)
+    public Quest(string questName, string questDesc, string questTask, int task1, int taskMax1, bool completed, int questReward, int quest_ID, CharacterType mobType)
     {
 
         m_questName = questName;
@@ -40,6 +46,9 @@ public class Quest {
 
         m_completed = completed;
 
+        m_quest_ID = quest_ID;
+
+        m_mobType = mobType;
     }
 
     public Quest()

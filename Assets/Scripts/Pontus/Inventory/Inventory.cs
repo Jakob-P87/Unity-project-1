@@ -63,7 +63,7 @@ public class Inventory : MonoBehaviour {
         {
             equipment.Add(new Item());
         }
-        AddItem("Iron Sword");
+        AddItem("Iron Bar");
         AddItem("Wooden Log");
         AddItem("Leather");
         AddItem("Chain Mail");
