@@ -22,7 +22,7 @@ public class ItemDatabase : MonoBehaviour {
 
         //Equipment
         database.Add(new Item(4, "Wooden Sword", 2, "Baby's first sword", new Recipe("Wooden Log", "Leather"), EquipmentTypes.WEAPON));
-        database.Add(new Item(5, "Iron Sword", 5, "A simple iron sword", new Recipe("Iron", "Stick"), EquipmentTypes.WEAPON));
+        database.Add(new Item(5, "Iron Sword", 5, "A simple iron sword", new Recipe("Iron Bar", "Leather"), EquipmentTypes.WEAPON));
         database.Add(new Item(6, "Chain Mail", 3, "A chain mail", new Recipe(null, null), EquipmentTypes.ARMOR));
 
         //Consumable

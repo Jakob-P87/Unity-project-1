@@ -21,6 +21,7 @@ public class NPCTalkTo : MonoBehaviour {
         //dialougeScreen.gameObject.SetActive(false);
         questScript = FindObjectOfType(typeof(QuestScript)) as QuestScript;
         level = FindObjectOfType(typeof(UserStats)) as UserStats;
+        dialougeScreen.gameObject.SetActive(false);
     }
 
     void OnMouseUp()
@@ -40,10 +41,12 @@ public class NPCTalkTo : MonoBehaviour {
         {
             case CharacterType.KNIGHT:
                 StartCoroutine(talkingToKnight());
-                questScript.SpiderQuest2(); // Start a Spider Quest
+                questScript.ZombieQuest();
+                
                 break;
             case CharacterType.RANGER:
                 StartCoroutine(talkingToRanger());
+                questScript.SpiderQuest2(); // Start a Spider Quest
                 break;
             case CharacterType.WIZARD:
                 StartCoroutine(talkingToWizard());
@@ -63,7 +66,10 @@ public class NPCTalkTo : MonoBehaviour {
         dialougeText.text = "Paladin?";
         yield return new WaitForSeconds(0.4f);
         yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
-        dialougeText.text = "Well it was nice to meet you.";
+        dialougeText.text = "Great. I need a paladin to take care of an un-dead problem.";
+        yield return new WaitForSeconds(0.4f);
+        yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+        dialougeText.text = "Some zombies i need to become dead-dead. kthxbye.";
         yield return new WaitForSeconds(0.4f);
         yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
         yield return new WaitForSeconds(0.1f);
@@ -77,7 +83,13 @@ public class NPCTalkTo : MonoBehaviour {
         dialougeText.text = "Paladin huh?";
         yield return new WaitForSeconds(0.4f);
         yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
-        dialougeText.text = "I enjoy seeing new faces around here. See you later.";
+        dialougeText.text = "I enjoy seeing new faces around here.";
+        yield return new WaitForSeconds(0.4f);
+        yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+        dialougeText.text = "Now that we know each other, how about you kill some giant spiders?";
+        yield return new WaitForSeconds(0.4f);
+        yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+        dialougeText.text = "Ok. Nice. Good. Go squish them giant legged hair-balls for me. kthxbye.";
         yield return new WaitForSeconds(0.4f);
         yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
         yield return new WaitForSeconds(0.1f);
@@ -92,14 +104,7 @@ public class NPCTalkTo : MonoBehaviour {
         yield return new WaitForSeconds(0.4f);
         yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
         dialougeText.text = "Completed quests now rewarded";
-        for (int i = 0; i < questScript.quests.Count; i++)
-        {
-            if (questScript.quests[i].m_completed)
-            {
-                level.curXp += questScript.quests[i].m_questReward; //Give curXp questReward amount (for every completed quest)
-                //Make something here which wont give XP by talking again? Perhaps set m_completed = false? No cuz it will be set to true again...
-            }
-        }
+        CompleteAllUnDeliveredQuests();
         yield return new WaitForSeconds(0.4f);
         yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
         dialougeText.text = "I'm sure our ways will cross again.";
@@ -108,5 +113,18 @@ public class NPCTalkTo : MonoBehaviour {
         yield return new WaitForSeconds(0.1f);
         dialougeScreen.gameObject.SetActive(false);
         talking = false;
+    }
+
+    void CompleteAllUnDeliveredQuests()
+    {
+        for (int i = 0; i < questScript.quests.Count; i++)
+        {
+            if (questScript.quests[i].m_completed && questScript.quests[i].m_questDelivered == false)
+            {
+                level.curXp += questScript.quests[i].m_questReward; //Give curXp questReward amount (for every completed quest)
+                questScript.quests[i].m_questDelivered = true;
+                //Make something here which wont give XP by talking again? Perhaps set m_completed = false? No cuz it will be set to true again...
+            }
+        }
     }
 }
