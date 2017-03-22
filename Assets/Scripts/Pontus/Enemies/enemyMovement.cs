@@ -94,7 +94,13 @@ public class enemyMovement : MonoBehaviour {
     {
         if (enemyState == enemyStates.ATTACK && enemy.currentHp > 0)
         {
-            target.GetComponent<playerUI>().TakeDamage(attackDmg);
+            float dmg = attackDmg - level.curArmor;
+            if (dmg < 1)
+            {
+                dmg = 1;
+            }
+                
+            target.GetComponent<playerUI>().TakeDamage(dmg);
         }
     }
 
