@@ -5,6 +5,7 @@ public class UserStats : MonoBehaviour
 {
     Inventory inv;
     private float wpnDmg;
+    private float dmgRes;
 
     private float vitMultiplier = 4;
     private float strMultiplier = 0.2f;
@@ -161,15 +162,21 @@ public class UserStats : MonoBehaviour
     public void UpdateStats()
     {
         wpnDmg = 0;
+        dmgRes = 0;
         foreach (var item in inv.equipment)
         {
-            if (item.m_name != null)
+            if (item.m_equipType == EquipmentTypes.WEAPON)
             {
                 wpnDmg += item.m_dmg;
+            }
+            if (item.m_equipType == EquipmentTypes.ARMOR)
+            {
+                dmgRes += item.m_dmg;
             }
         }
         curAttackPower = (curStrength * strMultiplier) + wpnDmg;
         curAttackSpeed = 3 + (curDexterity * 0.05f);
+        curArmor = dmgRes;
         maxHp = (100) + (curVitality * vitMultiplier);
     }
 }
