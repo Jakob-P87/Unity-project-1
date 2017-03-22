@@ -9,6 +9,7 @@ public class NPCTalkTo : MonoBehaviour {
     public Text npcName;
     public Text dialougeText;
     QuestScript questScript;
+    [HideInInspector]
     public UserStats level;
 
     public CharacterType NPC;
@@ -138,17 +139,9 @@ public class NPCTalkTo : MonoBehaviour {
         }
         for (int i = 0; i < questScript.quests.Count; i++)
         {
-            
+            if(questScript.quests[i].m_completed)
             questScript.quests.RemoveAt(i);
         }
         questScript.textHandling.questBrowser.AddOptions(questScript.questListName);
-        //for (int i = 0; i < questScript.quests.Count; i++)
-        //{
-        //    if(!questScript.quests[i].m_completed)
-        //    {
-        //        questScript.questListName.Add(questScript.quests[i].m_questName);
-        //    }
-        //}
-        //questScript.textHandling.questBrowser.AddOptions(questScript.questListName);
     }
 }
