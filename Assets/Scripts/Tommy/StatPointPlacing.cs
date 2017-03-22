@@ -22,6 +22,7 @@ public class StatPointPlacing : MonoBehaviour
         if (stats.statPoints > 0)
         {
             stats.curVitality += 1;
+            stats.curHp += 4;
             stats.statPoints -= 1;
         }
         stats.UpdateStats();
