@@ -39,9 +39,10 @@ public class ItemDrop : MonoBehaviour
         //Debug.Log(doneOnce);
         if (sRef.currentHp <= 0) //if currentHp <= 0
         {
-            agent.Stop(); //Stops the object from moving when dead
+            agent.enabled = false; //Stops the object from moving when dead
             if (!doneOnce)
             {
+                //agent.enabled = false;
                 StartCoroutine(DestroyObj());
                 anim.Play("Dead");
                 doneOnce = true;

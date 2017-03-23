@@ -12,6 +12,9 @@ public class NPCTalkTo : MonoBehaviour {
         DONE,
     }
 
+    [SerializeField]
+    private GameObject QuestMark;
+
     public GameObject dialougeScreen;
     public Text npcName;
     public Text dialougeText;
@@ -112,6 +115,7 @@ public class NPCTalkTo : MonoBehaviour {
                 dialougeScreen.gameObject.SetActive(false);
                 talking = false;
                 state = CharacterState.AWAIT;
+                Destroy(QuestMark);
                 break;
 
             case CharacterState.AWAIT:
@@ -198,6 +202,7 @@ public class NPCTalkTo : MonoBehaviour {
                 dialougeScreen.gameObject.SetActive(false);
                 talking = false;
                 state = CharacterState.AWAIT;
+                Destroy(QuestMark);
                 break;
 
             case CharacterState.AWAIT:
