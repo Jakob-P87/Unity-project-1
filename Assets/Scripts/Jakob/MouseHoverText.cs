@@ -21,7 +21,7 @@ public class MouseHoverText : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     //Do this when the cursor enters the rect area of this selectable UI object.
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("The cursor entered the selectable UI element.");
+        //Debug.Log("The cursor entered the selectable UI element.");
         childText.SetActive(true);
     }
 

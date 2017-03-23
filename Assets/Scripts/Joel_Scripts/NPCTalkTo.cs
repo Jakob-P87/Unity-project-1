@@ -105,7 +105,7 @@ public class NPCTalkTo : MonoBehaviour {
                 dialougeText.text = "The cemetary has been infested with the living dead!";
                 yield return new WaitForSeconds(0.4f);
                 yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
-                dialougeText.text = "Would you be interested in clearing the cemetary for me?";
+                dialougeText.text = "Would you be kind and clear the cemetary for me?";
                 yield return new WaitForSeconds(0.4f);
                 yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
                 yield return new WaitForSeconds(0.1f);

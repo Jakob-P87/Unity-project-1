@@ -78,7 +78,7 @@ public class QuestScript : MonoBehaviour {
             string qDesc = "Help the ranger clear the cemetary from zombies!";
             string qTask = "Zombies Slain: ";
             int task1 = 0;           //e.g. Amount killed
-            int taskMax1 = 2;       //e.g. Amount to be killed
+            int taskMax1 = 12;       //e.g. Amount to be killed
             int qReward = 500;
             bool questComplete = false;
 
@@ -111,7 +111,7 @@ public class QuestScript : MonoBehaviour {
             string qDesc = "Go kill some spiders and come back to when you are done!";
             string qTask = "Spiders Slain: ";
             int task1 = 0;           //e.g. Amount killed
-            int taskMax1 = 2;       //e.g. Amount to be killed
+            int taskMax1 = 8;       //e.g. Amount to be killed
             int qReward = 150;
             bool questComplete = false;
 

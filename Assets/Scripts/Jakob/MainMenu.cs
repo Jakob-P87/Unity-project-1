@@ -16,7 +16,7 @@ public class MainMenu : MonoBehaviour {
 
     public void NewGame()
     {
-        Application.LoadLevel("Jakob");
+        Application.LoadLevel("Level1");
     }
 
     public void exitGame()
