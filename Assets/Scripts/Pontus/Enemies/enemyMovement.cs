@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class enemyMovement : MonoBehaviour {
 
-    public GameObject target;
+    public GameObject target; //player
     private float distToTarget;
     public float aggroRange;
     public float attackRange;
@@ -15,14 +15,14 @@ public class enemyMovement : MonoBehaviour {
     Vector3 lastSeen;
     Vector3 startPos;
     NavMeshAgent agent;
-    public enemyStates enemyState;
+    public enemyStates enemyState; //enum
     Animator anim;
     public UserStats level;
     public enemyUI enemy;
 
     void Start ()
     {
-        anim = GetComponent<Animator>();
+        anim = GetComponent<Animator>(); //the gameobjects animator
         InvokeRepeating("Attack", 0, attackDelay);
         enemyState = enemyStates.IDLE; 
         agent = GetComponent<NavMeshAgent>();
@@ -32,14 +32,14 @@ public class enemyMovement : MonoBehaviour {
 	
 	void Update ()
     {
-        distToTarget = Vector3.Distance(transform.position, target.transform.position);
+        distToTarget = Vector3.Distance(transform.position, target.transform.position); //distance between gameobjects and targets positions
         RaycastHit hit;
         var castDir = target.transform.position - transform.position;
         Physics.SphereCast(transform.position, 1, castDir, out hit);
 
         if (distToTarget < aggroRange && distToTarget > attackRange && hit.collider.tag == "Player") //CHASE
         {
-            lastSeen = target.transform.position;
+            lastSeen = target.transform.position; //players last known position
             enemyState = enemyStates.CHASE;
         }
         else if (distToTarget < attackRange && hit.collider.tag == "Player") //ATTACK
@@ -57,32 +57,32 @@ public class enemyMovement : MonoBehaviour {
 
         switch (enemyState)
         {
-            case enemyStates.IDLE:
+            case enemyStates.IDLE: //Idle animation
                 anim.SetBool("IsRunning", false);
                 anim.SetBool("IsAttacking", false);
                 anim.SetBool("IsDead", false);
                 anim.SetBool("IsIdle", true);
                 break;
-            case enemyStates.CHASE:
+            case enemyStates.CHASE: //Running animation
                 agent.Resume();
-                agent.SetDestination(lastSeen);
+                agent.SetDestination(lastSeen); // go to last known position of the player
                 anim.SetBool("IsRunning", true);
                 anim.SetBool("IsAttacking", false);
                 anim.SetBool("IsIdle", false);
                 break;
-            case enemyStates.ATTACK:
+            case enemyStates.ATTACK: //Attack animation
                 agent.Stop();
                 anim.SetBool("IsRunning", false);
                 anim.SetBool("IsAttacking", true);
                 break;
-            case enemyStates.RETURN:
+            case enemyStates.RETURN: //Running animation
                 agent.Resume();
-                agent.SetDestination(startPos);
+                agent.SetDestination(startPos); //return to start position
                 anim.SetBool("IsRunning", true);
                 anim.SetBool("IsAttacking", false);
                 anim.SetBool("IsIdle", false);
                 break;
-            case enemyStates.DEAD:
+            case enemyStates.DEAD: //Dying animation
                 anim.SetBool("IsDead", true);
                 anim.SetBool("IsAttacking", false);
                 anim.SetBool("IsRunning", false);
@@ -95,9 +95,9 @@ public class enemyMovement : MonoBehaviour {
         if (enemyState == enemyStates.ATTACK && enemy.currentHp > 0)
         {
             float dmg = attackDmg - level.curArmor;
-            if (dmg < 1)
+            if (dmg < 1) //if armor is higher than dmg
             {
-                dmg = 1;
+                dmg = 1; //dmg = 1
             }
                 
             target.GetComponent<playerUI>().TakeDamage(dmg);
@@ -106,6 +106,6 @@ public class enemyMovement : MonoBehaviour {
 
     void OnDestroy()
     {
-        level.curXp += (level.level + addXp) / level.level + 3;
+        level.curXp += (level.level + addXp) / level.level + 3; //player xp system
     }
 }

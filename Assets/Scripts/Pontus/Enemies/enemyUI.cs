@@ -31,19 +31,15 @@ public class enemyUI : MonoBehaviour {
 
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.collider == gameObject.GetComponent<Collider>())
+                if (hit.collider == gameObject.GetComponent<Collider>()) //if gameObject is clicked on
                 {
-                    hp.gameObject.SetActive(true);
+                    hp.gameObject.SetActive(true); //activates gameObjects slider
                 }
-                else if (hit.collider != gameObject.GetComponent<Collider>() || hit.collider.gameObject == null)
+                else if (hit.collider != gameObject.GetComponent<Collider>() || hit.collider.gameObject == null) //if gameObject isn't clicked on
                 {
-                    hp.gameObject.SetActive(false);
+                    hp.gameObject.SetActive(false); //deactivates gameObjects slider
                 }
             }
         }
-    }
-    void OnDestroy()
-    {
-        //Destroy(hp.gameObject);
     }
 }
